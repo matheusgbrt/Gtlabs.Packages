@@ -10,3 +10,5 @@ Utility packages for .NET applications.
 - [Gtlabs.DependencyInjections](Gtlabs.DependencyInjections/README.md): Conventions for dependency injection (transient, scoped, singleton).
 - [Gtlabs.Network](Gtlabs.Network/README.md): Utilities for networking, local IP, and ports. Used only in other packages.
 - [Gtlabs.ServiceBus](Gtlabs.ServiceBus/README.md): Abstractions and integrations for messaging with Rebus/RabbitMQ.
+- [Gtlabs.Redis](Gtlabs.Redis/README.md): Abstractions and integrations setting up a Redis Cache.
+
