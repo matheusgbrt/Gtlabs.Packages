@@ -25,7 +25,17 @@ jobs:
         run: |
           VERSION=${{ steps.get_version.outputs.version }}
           echo "Setting version to $VERSION in all .csproj files..."
-          find . -name '*.csproj' -exec sed -i "s|<Version>.*</Version>|<Version>$VERSION</Version>|" {} \;
+          for file in $(find . -name '*.csproj'); do
+            if grep -q "<Version>" "$file"; then
+              sed -i "s|<Version>.*</Version>|<Version>$VERSION</Version>|" "$file"
+            else
+              # Insert version inside <PropertyGroup> if missing
+              sed -i "0,/<PropertyGroup>/s|<PropertyGroup>|<PropertyGroup>\n    <Version>$VERSION</Version>|" "$file"
+            fi
+          done
+          
+      - name: Verify version update
+        run: grep -R "<Version>" . | grep -v obj/
 
       - name: Build and pack
         run: dotnet pack --configuration Release --output ./artifacts
