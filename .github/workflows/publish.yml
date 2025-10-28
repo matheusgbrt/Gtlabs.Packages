@@ -24,13 +24,17 @@ jobs:
       - name: Update project versions
         run: |
           VERSION=${{ steps.get_version.outputs.version }}
-          for file in $(find . -name '*.csproj'); do
-            dotnet version $file -s $VERSION || \
-            sed -i "s|<Version>.*</Version>|<Version>$VERSION</Version>|" $file
-          done
+          echo "Setting version to $VERSION in all .csproj files..."
+          find . -name '*.csproj' -exec sed -i "s|<Version>.*</Version>|<Version>$VERSION</Version>|" {} \;
 
       - name: Build and pack
         run: dotnet pack --configuration Release --output ./artifacts
+
+      - name: Upload built packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: nupkgs
+          path: ./artifacts/*.nupkg
 
       - name: Push to ProGet
         env:
