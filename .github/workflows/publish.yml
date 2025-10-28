@@ -1,0 +1,41 @@
+﻿name: Publish to ProGet
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update project versions
+        run: |
+          VERSION=${{ steps.get_version.outputs.version }}
+          for file in $(find . -name '*.csproj'); do
+            dotnet version $file -s $VERSION || \
+            sed -i "s|<Version>.*</Version>|<Version>$VERSION</Version>|" $file
+          done
+
+      - name: Build and pack
+        run: dotnet pack --configuration Release --output ./artifacts
+
+      - name: Push to ProGet
+        env:
+          PROGET_API_KEY: ${{ secrets.PROGET_API_KEY }}
+        run: |
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --api-key $PROGET_API_KEY \
+            --source "https://proget.gtlabs.com.br/nuget/gtlabs-dotnet/"
