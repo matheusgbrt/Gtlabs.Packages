@@ -5,7 +5,7 @@ using Rebus.Extensions;
 using Rebus.Messages;
 using Rebus.Serialization;
 
-namespace Mgb.ServiceBus.ServiceBus;
+namespace Gtlabs.ServiceBus.ServiceBus.Serializers;
 
 public sealed class HeaderMappedJsonSerializer : ISerializer
 {
