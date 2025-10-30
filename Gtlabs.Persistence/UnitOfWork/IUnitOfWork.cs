@@ -1,4 +1,4 @@
-﻿namespace Gtlabs.Persistence.Repository;
+﻿namespace Gtlabs.Persistence.UnitOfWork;
 
 public interface IUnitOfWork
 {

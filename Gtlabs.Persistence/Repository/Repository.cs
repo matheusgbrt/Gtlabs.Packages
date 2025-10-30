@@ -6,62 +6,66 @@ namespace Gtlabs.Persistence.Repository;
 
 public class Repository<T> : IRepository<T> where T : AuditedEntity, IScopedDependency
 {
-    protected readonly DbContext Context;
-    protected readonly DbSet<T> DbSet;
+    private readonly DbContext _context;
+    private readonly DbSet<T> _dbSet;
 
     public Repository(DbContext context)
     {
-        Context = context ?? throw new ArgumentNullException(nameof(context));
-        DbSet = Context.Set<T>();
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _dbSet = _context.Set<T>();
     }
     
-    public IQueryable<T> Query() => DbSet.AsQueryable();
+    public IQueryable<T> Query()
+        => _dbSet;
 
-    public async Task<T?> GetByIdAsync(Guid id)
+    public async Task<T?> GetByIdAsync(Guid id, bool asNoTracking = true)
     {
-        return await DbSet.FindAsync(id);
+        var dbset = asNoTracking ? _dbSet.AsNoTracking() : _dbSet;
+        return await dbset.FirstOrDefaultAsync(entity => entity.Id == id);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync(bool asNoTracking = true)
     {
-        return await DbSet.ToListAsync();
+        var dbset = asNoTracking ? _dbSet.AsNoTracking() : _dbSet;
+        return await dbset.ToListAsync();
     }
-
-    public async Task SaveAsync(T entity)
+    
+    public async Task InsertAsync(T entity,bool autoSave = false)
     {
         if (entity == null)
             throw new ArgumentNullException(nameof(entity));
 
-        var entry = Context.Entry(entity);
+        await _dbSet.AddAsync(entity);
+        
+        if(autoSave)
+            await _context.SaveChangesAsync();
+    }
+    
+    public async Task UpdateAsync(T entity, bool autoSave = false)
+    {
+        if (entity == null)
+            throw new ArgumentNullException(nameof(entity));
+
+        var entry = _context.Entry(entity);
+
         if (entry.State == EntityState.Detached)
         {
-            await DbSet.AddAsync(entity);
+            _dbSet.Attach(entity);
         }
 
-        await Context.SaveChangesAsync();
+        entry.State = EntityState.Modified;
+        if(autoSave)
+            await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(T entity)
+    public async Task DeleteAsync(T entity, bool autoSave = false)
     {
         if (entity == null)
             throw new ArgumentNullException(nameof(entity));
 
-        DbSet.Remove(entity);
-        await Context.SaveChangesAsync();
+        _dbSet.Remove(entity);
+        if(autoSave)
+            await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Guid id)
-    {
-        var entity = await GetByIdAsync(id);
-        if (entity != null)
-        {
-            DbSet.Remove(entity);
-            await Context.SaveChangesAsync();
-        }
-    }
-    public async Task PurgeAsync(T entity)
-    {
-        DbSet.Remove(entity);
-        await Context.SaveChangesAsync();
-    }
 }
