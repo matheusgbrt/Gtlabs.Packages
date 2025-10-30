@@ -2,7 +2,7 @@
 
 namespace Gtlabs.Persistence.Repository;
 
-public interface IRepository<T> where T : AuditedEntity
+public interface IRepository<T> : IQueryable<T> where T : AuditedEntity
 {
     Task<T?> GetByIdAsync(Guid id);
     Task<IEnumerable<T>> GetAllAsync();
