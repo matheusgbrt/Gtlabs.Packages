@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.AppRegistration", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.Redis", "Gtlabs.Redis\Gtlabs.Redis.csproj", "{DBA08BFF-5C67-42FE-8E88-8A61FD0CD470}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.Persistence", "Gtlabs.Persistence\Gtlabs.Persistence.csproj", "{4FFAEAB1-A82A-4336-B9C8-057415671078}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{DBA08BFF-5C67-42FE-8E88-8A61FD0CD470}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA08BFF-5C67-42FE-8E88-8A61FD0CD470}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA08BFF-5C67-42FE-8E88-8A61FD0CD470}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FFAEAB1-A82A-4336-B9C8-057415671078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FFAEAB1-A82A-4336-B9C8-057415671078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FFAEAB1-A82A-4336-B9C8-057415671078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FFAEAB1-A82A-4336-B9C8-057415671078}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

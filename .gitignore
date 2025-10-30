@@ -40,6 +40,10 @@
 /Gtlabs.Redis/bin
 /Gtlabs.Redis/nupkgs
 
+/Gtlabs.Persistence/obj
+/Gtlabs.Persistence/bin
+/Gtlabs.Persistence/nupkgs
+
 .idea
 publish.txt
 Packages.sln.DotSettings.user
