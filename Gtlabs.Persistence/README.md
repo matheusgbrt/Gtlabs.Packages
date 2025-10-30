@@ -1,24 +1,24 @@
 # Gtlabs.Persistence
 
-Biblioteca de persistência para aplicações .NET, fornecendo integrações e convenções sobre Entity Framework Core com padrões Repository e Unit of Work. Inclui entidades base (auditoria, soft-delete), um DbContext customizado, extensões para migração e um serviço para aplicar migrações no startup.
+Persistence library for .NET applications that provides integrations and conventions on top of Entity Framework Core using Repository and Unit of Work patterns. Includes base entities (auditing, soft-delete), a custom DbContext, migration extensions and a service to apply migrations at startup.
 
-## Estrutura (resumo)
-- CustomDbContext/: implementação do DbContext utilizada pela aplicação.
-- Entities/: entidades base (Entity, AuditedEntity, SoftDeleteEntity).
-- Extensions/: helpers para configuração e migração de banco.
-- Repository/: IRepository, Repository e UnitOfWork.
-- Services/: serviço para aplicar migrações automaticamente.
+## Structure (summary)
+- CustomDbContext/: custom `DbContext` implementation used by the application.
+- Entities/: base entities (`Entity`, `AuditedEntity`, `SoftDeleteEntity`).
+- Extensions/: helpers for database configuration and migrations.
+- Repository/: `IRepository`, `Repository` and `UnitOfWork`.
+- Services/: service to apply migrations automatically.
 
-## Caso de uso: CustomDbContext
-Use o `GtLabsDbContext` para centralizar a configuração do modelo, convenções e interceptores/companhias de auditoria antes de usar os repositórios ou o EF diretamente.
+## Use case: CustomDbContext
+Use `GtLabsDbContext` to centralize model configuration, conventions and auditing/interceptors before using repositories or EF directly.
 
-Exemplo de uso:
+Example:
 ```csharp
-// registrar no DI
-services.AddDbContext<GtLabsDbContext>(opts => 
+// register in DI
+services.AddDbContext<GtLabsDbContext>(opts =>
     opts.UseSqlServer(configuration.GetConnectionString("Default")));
 
-// injetar e usar
+// inject and use
 public class MyAppService
 {
     private readonly GtLabsDbContext _db;
@@ -32,10 +32,10 @@ public class MyAppService
 }
 ```
 
-## Caso de uso: Repository
-Use o padrão Repository para isolar a lógica de acesso a dados da camada de aplicação, facilitando testes e mantendo regras de consulta centralizadas.
+## Use case: Repository
+Use the Repository pattern to isolate data access logic from the application layer, simplifying tests and centralizing query rules.
 
-Exemplo de uso:
+Example:
 ```csharp
 public class MyService
 {
@@ -61,8 +61,8 @@ public class MyService
 }
 ```
 
-## Instalação
-Adicione o projeto como referência ou publique como pacote NuGet e referencie no seu projeto.
+## Installation
+Add the project reference or publish as a NuGet package and reference it in your project.
 
-## Licença
-Verifique o arquivo LICENSE no repositório principal.
+## License
+See the LICENSE file in the root repository for details.

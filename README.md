@@ -11,4 +11,5 @@ Utility packages for .NET applications.
 - [Gtlabs.Network](Gtlabs.Network/README.md): Utilities for networking, local IP, and ports. Used only in other packages.
 - [Gtlabs.ServiceBus](Gtlabs.ServiceBus/README.md): Abstractions and integrations for messaging with Rebus/RabbitMQ.
 - [Gtlabs.Redis](Gtlabs.Redis/README.md): Abstractions and integrations setting up a Redis Cache.
+- [Gtlabs.Persitence](Gtlabs.Persistence/README.md): Abstractions and integrations setting up Entity Framework.
 
