@@ -1,5 +1,6 @@
 ﻿using Gtlabs.Api.AmbientData;
 using Gtlabs.Persistence.CustomDbContext;
+using Gtlabs.Persistence.Repository;
 using Gtlabs.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +28,8 @@ public static class AddPersistenceExtension
         
         services.AddHostedService<DbMigrationHostedService<TContext>>();
         services.AddScoped<DbContext, TContext>();
-
+        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        
         return services;
     }
 }
