@@ -28,7 +28,6 @@ public static class AddPersistenceExtension
         
         services.AddHostedService<DbMigrationHostedService<TContext>>();
         services.AddScoped<DbContext, TContext>();
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         
         return services;
     }

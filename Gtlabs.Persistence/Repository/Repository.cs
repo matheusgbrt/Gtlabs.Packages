@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Gtlabs.Persistence.Repository;
 
-public class Repository<T> : IRepository<T> where T : AuditedEntity, IScopedDependency
+public class Repository<T> : ITransientDependency, IRepository<T> where T : AuditedEntity
 {
     private readonly DbContext _context;
     private readonly DbSet<T> _dbSet;
