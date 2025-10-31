@@ -6,7 +6,7 @@ using StackExchange.Redis;
 
 namespace Gtlabs.Redis.Services;
 
-internal class CacheService<T> : ICacheService<T>, IScopedDependency where T : CacheEntity
+internal class CacheService<T> : ICacheService<T> where T : CacheEntity
 {
     private readonly IDatabase _database;
 
