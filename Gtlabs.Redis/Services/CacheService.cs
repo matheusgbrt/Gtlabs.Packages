@@ -1,11 +1,12 @@
 ﻿using System.Text.Json;
 using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
+using Gtlabs.Redis.Abstractions;
 using Gtlabs.Redis.Interfaces;
 using StackExchange.Redis;
 
 namespace Gtlabs.Redis.Services;
 
-internal class CacheService<T> : ICacheService<T>, IScopedDependency
+internal class CacheService<T> : ICacheService<T>, IScopedDependency where T : CacheEntity
 {
     private readonly IDatabase _database;
 
@@ -14,14 +15,16 @@ internal class CacheService<T> : ICacheService<T>, IScopedDependency
         _database = connectionManager.GetDatabase();
     }
 
-    public async Task SetAsync(string key, T value, TimeSpan? expiry = null)
+    public async Task SetAsync(T entity, TimeSpan? expiry = null)
     {
-        var json = JsonSerializer.Serialize(value);
+        var key = entity.BuildKey();
+        var json = JsonSerializer.Serialize(entity);
         await _database.StringSetAsync(key, json, expiry);
     }
 
-    public async Task<T?> GetAsync(string key)
+    public async Task<T?> GetAsync(T entity)
     {
+        var key = entity.BuildKey();
         var value = await _database.StringGetAsync(key);
         if (value.IsNullOrEmpty)
             return default;
@@ -29,8 +32,9 @@ internal class CacheService<T> : ICacheService<T>, IScopedDependency
         return JsonSerializer.Deserialize<T>(value!);
     }
 
-    public async Task<bool> DeleteAsync(string key)
+    public async Task<bool> DeleteAsync(T entity)
     {
+        var key = entity.BuildKey();
         return await _database.KeyDeleteAsync(key);
     }
 }

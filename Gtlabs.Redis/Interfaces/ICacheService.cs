@@ -2,7 +2,7 @@
 
 public interface ICacheService<T>
 {
-    Task SetAsync(string key, T value, TimeSpan? expiry = null);
-    Task<T?> GetAsync(string key);
-    Task<bool> DeleteAsync(string key);
+    Task SetAsync(T entity, TimeSpan? expiry = null);
+    Task<T?> GetAsync(T entity);
+    Task<bool> DeleteAsync(T entity);
 }
