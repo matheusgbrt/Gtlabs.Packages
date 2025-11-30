@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Gtlabs.Api.AmbientData.Headers;
 
-public class HeaderAmbientDataProvider : IUserIdSource, IOrderedAmbientSource
+public class HeaderAmbientDataProvider : IAmbientDataProvider, IUserIdSource, IOrderedAmbientSource
 {
 
     public int Order { get; } = 0;
@@ -22,3 +22,4 @@ public class HeaderAmbientDataProvider : IUserIdSource, IOrderedAmbientSource
     }
 
 }
+

@@ -4,9 +4,9 @@ namespace Gtlabs.Api.AmbientData;
 
 public class AmbientData : IAmbientData
 {
-    private readonly IEnumerable<object> _providers;
+    private readonly IEnumerable<IAmbientDataProvider> _providers;
 
-    public AmbientData(IEnumerable<object> providers)
+    public AmbientData(IEnumerable<IAmbientDataProvider> providers)
     {
         _providers = providers
             .OrderBy(p => (p as IOrderedAmbientSource)?.Order ?? int.MaxValue)
