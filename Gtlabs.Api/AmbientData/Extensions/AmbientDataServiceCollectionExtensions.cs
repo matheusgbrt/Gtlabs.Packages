@@ -12,6 +12,7 @@ public static class AmbientDataServiceCollectionExtensions
         //
         // Register providers here manually
         //
+        services.AddScoped<HeaderAmbientDataProvider>();
         services.AddScoped<IAmbientDataProvider>(sp => sp.GetRequiredService<HeaderAmbientDataProvider>());
 
 
