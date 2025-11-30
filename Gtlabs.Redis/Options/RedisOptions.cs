@@ -2,6 +2,6 @@
 
 public class RedisOptions
 {
-    public string Connection { get; set; } = ""
+    public string Connection { get; set; } = "";
     public int DefaultDb { get; set; } = 0;
 }
