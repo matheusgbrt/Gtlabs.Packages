@@ -1,25 +1,27 @@
-﻿using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Gtlabs.Api.AmbientData.Sources;
 
 namespace Gtlabs.Api.AmbientData;
 
-public class AmbientData : IAmbientData, IScopedDependency
+public class AmbientData : IAmbientData
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IEnumerable<object> _providers;
 
-    public AmbientData(IHttpContextAccessor httpContextAccessor)
+    public AmbientData(IEnumerable<object> providers)
     {
-        _httpContextAccessor = httpContextAccessor;
+        _providers = providers
+            .OrderBy(p => (p as IOrderedAmbientSource)?.Order ?? int.MaxValue)
+            .ToList();
     }
 
+    
     public Guid? GetUserId()
     {
-        var context = _httpContextAccessor.HttpContext;
-        if (context == null)
-            return null;
-
-        if (context.Request.Headers.TryGetValue("UserID", out var userIdHeader))
-            return Guid.Parse(userIdHeader);
+        foreach (var provider in _providers.OfType<IUserIdSource>())
+        {
+            var value = provider.GetUserId();
+            if (value != null)
+                return value;
+        }
 
         return null;
     }
