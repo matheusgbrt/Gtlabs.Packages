@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using Microsoft.Extensions.Configuration;
+using StackExchange.Redis;
 
 namespace Gtlabs.Redis;
 
@@ -7,10 +8,10 @@ internal class RedisConnectionManager : IDisposable
     private readonly Lazy<ConnectionMultiplexer> _lazyConnection;
     private readonly int _defaultDatabase;
 
-    public RedisConnectionManager()
+    public RedisConnectionManager(IConfiguration configuration)
     {
-        var conn = Environment.GetEnvironmentVariable("REDIS_CONNECTION");
-        var db = Environment.GetEnvironmentVariable("REDIS_DEFAULT_DB");
+        var conn = configuration["Redis:Connection"];
+        var db = configuration["Redis:DefaultDb"];
 
         _defaultDatabase = int.TryParse(db, out var parsed) ? parsed : 0;
 
