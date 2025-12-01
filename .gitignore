@@ -44,6 +44,10 @@
 /Gtlabs.Persistence/bin
 /Gtlabs.Persistence/nupkgs
 
+/Gtlabs.Core/obj
+/Gtlabs.Core/bin
+/Gtlabs.Core/nupkgs
+
 .idea
 publish.txt
 Packages.sln.DotSettings.user
