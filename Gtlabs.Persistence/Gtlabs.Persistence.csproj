@@ -24,5 +24,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Gtlabs.Api\Gtlabs.Api.csproj" />
+      <ProjectReference Include="..\Gtlabs.Core\Gtlabs.Core.csproj" />
     </ItemGroup>
 </Project>
