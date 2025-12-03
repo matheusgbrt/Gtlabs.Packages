@@ -1,4 +1,5 @@
 ﻿using Consul;
+using Gtlabs.Consts;
 using Gtlabs.Consul.Dtos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ public static class ConsulRegistration
 {
     public static IServiceCollection AddConsulRegistration(this IServiceCollection services, IConfiguration configuration)
     {
-        var appId = configuration["AppId"];
+        var appId = configuration[ConfigurationFields.AppId];
         if (string.IsNullOrWhiteSpace(appId))
             throw new ArgumentException("AppId must be provided.", nameof(appId));
 
@@ -20,7 +21,7 @@ public static class ConsulRegistration
         {
             var addr = Environment.GetEnvironmentVariable("URL-CONSUL");
             if (string.IsNullOrWhiteSpace(addr))
-                throw new InvalidOperationException("Environment variable 'URL-CONSUL' is not set.");
+                throw new InvalidOperationException("Providers variable 'URL-CONSUL' is not set.");
 
             return new ConsulClient(c => c.Address = new Uri(addr));
         });

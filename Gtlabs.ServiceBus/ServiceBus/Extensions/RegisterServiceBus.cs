@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Gtlabs.Consts;
 using Gtlabs.ServiceBus.ServiceBus.Contracts;
 using Gtlabs.ServiceBus.ServiceBus.Serializers;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +19,8 @@ public static class ServiceBus
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var rabbitMqConnString = configuration["ServiceBus:ConnectionString"];
-        var inputQueueName     = configuration["AppId"];
+        var rabbitMqConnString = configuration[ConfigurationFields.ServiceBusConnectionString];
+        var inputQueueName     = configuration[ConfigurationFields.AppId];
         
         services.Scan(scan => scan
             .FromApplicationDependencies(assembly =>

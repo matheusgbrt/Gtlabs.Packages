@@ -7,10 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Gtlabs.Consts\Gtlabs.Consts.csproj" />
+      <ProjectReference Include="..\Gtlabs.Api\Gtlabs.Api.csproj" />
     </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Gtlabs.Api.AmbientData;
+using Gtlabs.Api.AmbientData.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -22,5 +23,7 @@ public class GtLabsDbContextFactory<TContext> : IDesignTimeDbContextFactory<TCon
     private class DesignTimeAmbientData : IAmbientData
     {
         public Guid? GetUserId() => Guid.Empty;
+        public string GetGatewayUrl() => string.Empty;
+        public Guid? GetCorrelationId() => Guid.Empty;
     }
 }

@@ -48,6 +48,15 @@
 /Gtlabs.Core/bin
 /Gtlabs.Core/nupkgs
 
+/Gtlabs.AspNet/obj
+/Gtlabs.AspNet/bin
+/Gtlabs.AspNet/nupkgs
+
+/Gtlabs.Consts/obj
+/Gtlabs.Consts/bin
+/Gtlabs.Consts/nupkgs
+
+
 .idea
 publish.txt
 Packages.sln.DotSettings.user

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using Gtlabs.Consts;
 using Gtlabs.Consul.Tokens;
 using Gtlabs.Consul.Dtos;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,7 @@ public static class ConsulConfiguration
         }
         var config = builder.Build();
         await LoadJsonConfigsFromPrefix(GeneralTokens.GeneralKeyPrefix);
-        await LoadJsonConfigsFromPrefix(config["AppId"]);
+        await LoadJsonConfigsFromPrefix(config[ConfigurationFields.AppId]);
 
         return builder;
     }

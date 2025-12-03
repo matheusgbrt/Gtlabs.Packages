@@ -5,22 +5,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Reference Include="Microsoft.Extensions.Hosting.Abstractions">
-        <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\9.0.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
+    
     <ItemGroup>
       <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.3.0" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\Gtlabs.Consts\Gtlabs.Consts.csproj" />
       <ProjectReference Include="..\Gtlabs.DependencyInjections\Gtlabs.DependencyInjections.csproj" />
     </ItemGroup>
 

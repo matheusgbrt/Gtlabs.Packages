@@ -1,4 +1,5 @@
-﻿using Gtlabs.Api.AmbientData.Sources;
+﻿using Gtlabs.Api.AmbientData.Interfaces;
+using Gtlabs.Api.AmbientData.Sources;
 
 namespace Gtlabs.Api.AmbientData;
 
@@ -21,6 +22,31 @@ public class AmbientData : IAmbientData
             var value = provider.GetUserId();
             if (value != null)
                 return value;
+        }
+
+        return null;
+    }
+
+    public string GetGatewayUrl()
+    {
+        foreach (var provider in _providers.OfType<IGatewayUrlSource>())
+        {
+            var value = provider.GetGatewayUrl();
+            if (!string.IsNullOrWhiteSpace(value))
+                return value!;
+        }
+
+        throw new InvalidOperationException(
+            "Gateway URL not found in any ambient data provider or environment variable.");
+    }
+
+    public Guid? GetCorrelationId()
+    {
+        foreach (var provider in _providers.OfType<ICorrelationIdSource>())
+        {
+            var value = provider.GetCorrelationid();
+            if (value.HasValue)
+                return value.Value;
         }
 
         return null;

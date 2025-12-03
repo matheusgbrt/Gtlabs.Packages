@@ -11,7 +11,7 @@ public static class ConsulProvider
 
         if (string.IsNullOrWhiteSpace(consulAddress))
         {
-            throw new InvalidOperationException("Environment variable 'URL-CONSUL' is not set.");
+            throw new InvalidOperationException("Providers variable 'URL-CONSUL' is not set.");
         }
 
         c.Address = new Uri(consulAddress);

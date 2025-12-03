@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.Persistence", "Gtlab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.Core", "Gtlabs.Core\Gtlabs.Core.csproj", "{D949809C-FD60-45CA-886E-78693146A40B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.Consts", "Gtlabs.Consts\Gtlabs.Consts.csproj", "{C99DFF2F-2ACD-43F8-BC69-A9927771BE40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.AspNet", "Gtlabs.AspNet\Gtlabs.AspNet.csproj", "{CDFF6D7A-822F-4B4F-9DB6-CBCBA4BC9502}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +64,13 @@ Global
 		{D949809C-FD60-45CA-886E-78693146A40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D949809C-FD60-45CA-886E-78693146A40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D949809C-FD60-45CA-886E-78693146A40B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99DFF2F-2ACD-43F8-BC69-A9927771BE40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99DFF2F-2ACD-43F8-BC69-A9927771BE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99DFF2F-2ACD-43F8-BC69-A9927771BE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99DFF2F-2ACD-43F8-BC69-A9927771BE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDFF6D7A-822F-4B4F-9DB6-CBCBA4BC9502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDFF6D7A-822F-4B4F-9DB6-CBCBA4BC9502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDFF6D7A-822F-4B4F-9DB6-CBCBA4BC9502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDFF6D7A-822F-4B4F-9DB6-CBCBA4BC9502}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
