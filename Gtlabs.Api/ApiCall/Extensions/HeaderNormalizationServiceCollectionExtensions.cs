@@ -12,13 +12,13 @@ public static class HeaderNormalizationServiceCollectionExtensions
     public static IServiceCollection AddApiClientCallBuilder(this IServiceCollection services)
     {
 
-        services.AddSingleton<IHeaderNormalizationProvider, CorrelationIdHeaderNormalizer>();
-        services.AddSingleton<IHeaderNormalizationProvider, UserIdHeaderNormalizer>();
-        services.AddSingleton<IHeaderNormalizationProvider, ServiceNameNormalizer>();
-        services.AddSingleton<IHeaderNormalizationProvider, TimestampHeaderNormalizer>();
+        services.AddScoped<IHeaderNormalizationProvider, CorrelationIdHeaderNormalizer>();
+        services.AddScoped<IHeaderNormalizationProvider, UserIdHeaderNormalizer>();
+        services.AddScoped<IHeaderNormalizationProvider, ServiceNameNormalizer>();
+        services.AddScoped<IHeaderNormalizationProvider, TimestampHeaderNormalizer>();
 
 
-        services.AddSingleton<ApiHeaderNormalizationService>();
+        services.AddScoped<ApiHeaderNormalizationService>();
         services.AddTransient<IApiClientCall, ApiClientCall>();
         services.AddTransient<IApiClientCallBuilder, ApiClientCallBuilder>();
         
