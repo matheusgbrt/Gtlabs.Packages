@@ -67,5 +67,21 @@ public class Repository<T> : IRepository<T> where T : AuditedEntity
         if(autoSave)
             await _context.SaveChangesAsync();
     }
+    
+    public void SetEntityState(object entity, EntityState state)
+    {
+        if (entity == null)
+            throw new ArgumentNullException(nameof(entity));
+
+        _context.Entry(entity).State = state;
+    }
+    
+    public async Task SetEntityStateAsync(object entity, EntityState state, bool autoSave = false)
+    {
+        SetEntityState(entity, state);
+
+        if (autoSave)
+            await _context.SaveChangesAsync();
+    }
 
 }
