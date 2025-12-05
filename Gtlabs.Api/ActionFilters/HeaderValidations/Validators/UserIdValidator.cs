@@ -1,7 +1,7 @@
 ﻿using Gtlabs.Consts;
 using Microsoft.AspNetCore.Http;
 
-namespace Gtlabs.Api.HeaderValidations;
+namespace Gtlabs.Api.ActionFilters.HeaderValidations.Validators;
 
 public class UserIdValidator : IRequestHeaderValidator
 {

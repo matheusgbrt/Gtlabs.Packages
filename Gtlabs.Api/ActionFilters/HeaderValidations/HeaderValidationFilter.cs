@@ -1,8 +1,9 @@
-﻿using Gtlabs.Api.HeaderValidations.Attributes;
+﻿using Gtlabs.Api.ActionFilters.HeaderValidations.Attributes;
+using Gtlabs.Api.ActionFilters.HeaderValidations.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Gtlabs.Api.HeaderValidations;
+namespace Gtlabs.Api.ActionFilters.HeaderValidations;
 
 public class HeaderValidationFilter : IActionFilter
 {

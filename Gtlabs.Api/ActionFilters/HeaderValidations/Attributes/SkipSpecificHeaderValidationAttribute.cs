@@ -1,4 +1,4 @@
-﻿namespace Gtlabs.Api.HeaderValidations.Attributes;
+﻿namespace Gtlabs.Api.ActionFilters.HeaderValidations.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class SkipSpecificHeaderValidationAttribute : Attribute

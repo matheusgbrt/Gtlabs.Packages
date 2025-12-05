@@ -1,4 +1,4 @@
-﻿using Gtlabs.Api.HeaderValidations;
+﻿using Gtlabs.Api.ActionFilters.HeaderValidations.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Gtlabs.Api.ActionFilters.Extensions;
