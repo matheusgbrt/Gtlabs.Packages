@@ -86,6 +86,7 @@ public abstract class GtLabsDbContext : DbContext
                 case EntityState.Deleted:
                     entry.State = EntityState.Modified;
                     entry.Entity.IsDeleted = true;
+                    entry.Entity.DeleterId = userId;
                     entry.Entity.LastModificationTime = now;
                     entry.Entity.ModifierId = userId;
                     break;
