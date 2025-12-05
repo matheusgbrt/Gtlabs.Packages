@@ -1,4 +1,5 @@
 ﻿using Gtlabs.Persistence.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Gtlabs.Persistence.Repository;
 
@@ -10,5 +11,7 @@ public interface IRepository<T> where T : AuditedEntity
     Task InsertAsync(T entity, bool autoSave = false);
     Task UpdateAsync(T entity, bool autoSave = false);
     Task DeleteAsync(T entity, bool autoSave = false);
+    void SetEntityState(object entity, EntityState state);
+    Task SetEntityStateAsync(object entity, EntityState state, bool autoSave = false);
 
 }

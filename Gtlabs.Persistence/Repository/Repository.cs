@@ -8,7 +8,7 @@ public class Repository<T> : IRepository<T> where T : AuditedEntity
 {
     private readonly DbContext _context;
     private readonly DbSet<T> _dbSet;
-
+    public DbContext Context => _context;
     public Repository(DbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
