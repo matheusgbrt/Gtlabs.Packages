@@ -1,5 +1,6 @@
 ﻿using Gtlabs.Api.AmbientData.Extensions;
 using Gtlabs.Api.ApiCall.Extensions;
+using Gtlabs.Api.HeaderValidations;
 using Gtlabs.DependencyInjections.DependencyInjectons.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,10 @@ public static class InitializeService
         services.AddAmbientData();
         services.AddApiClientCallBuilder();
         services.RegisterAllDependencies();
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<HeaderValidationFilter>();
+        });
         return services;
 
     }
