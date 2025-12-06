@@ -15,9 +15,7 @@ public static class AuthenticationServiceHeaderExtensions
     {
         services.Configure(options);
         services.AddScoped<IHeaderNormalizationProvider, AppJwtHeaderNormalizer>();
-        services.AddScoped<IAuthorizationValidator, AppTokenValidator>();
-        services.AddScoped<IAuthorizationValidator, ApiTokenValidator>();
-        services.AddScoped<IAuthorizationValidator, UserTokenValidator>();
+        services.AddAuthorizationValidators();
         services.AddJwtAuthentication();
         return services;
     }
