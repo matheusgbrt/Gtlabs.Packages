@@ -7,6 +7,6 @@ public static class ConsulHealthCheck
 {
     public static void AddConsulHealthCheck(this WebApplication application)
     {
-        application.MapGet("/health", () => Results.Ok("Healthy"));
+        application.MapGet("/health", () => Results.Ok("Healthy")).AllowAnonymous();
     }
 }
