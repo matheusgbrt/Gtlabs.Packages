@@ -10,8 +10,11 @@ public static class AuthorizationValidatorExtensions
     {
         var registry = new AuthorizationValidatorRegistry();
 
-        var validatorTypes = AppDomain.CurrentDomain
+        var assemblies = AppDomain.CurrentDomain
             .GetAssemblies()
+            .Where(a => a.FullName.StartsWith("Gtlabs"));
+        
+        var validatorTypes = assemblies
             .SelectMany(a => a.GetTypes())
             .Where(t =>
                 typeof(IAuthorizationValidator).IsAssignableFrom(t) &&
