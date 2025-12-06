@@ -9,28 +9,23 @@ namespace Gtlabs.Api.ApiCall.Normalization;
 public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
 {
     private readonly IOptions<AuthenticationHeaderOptions> _options;
-    private readonly IAppAuthService _appAuthService;
-    private readonly IAuthenticationApiCall _authenticationApi;
-    public int Order { get; } = 5;
+    private readonly ITokenProvider _tokenProvider;
 
+    public int Order => 5;
 
-    public AppJwtHeaderNormalizer(IAppAuthService appAuthService, IOptions<AuthenticationHeaderOptions> options, IAuthenticationApiCall authenticationApi)
+    public AppJwtHeaderNormalizer(ITokenProvider tokenProvider, IOptions<AuthenticationHeaderOptions> options)
     {
-        _appAuthService = appAuthService;
+        _tokenProvider = tokenProvider;
         _options = options;
-        _authenticationApi = authenticationApi;
     }
 
     public async void Normalize(ApiClientCallPrototype prototype)
     {
         if (!_options.Value.UseAuthHeader)
             return;
-        var token = await _appAuthService.GetAppToken();
-        if (string.IsNullOrEmpty(token))
-        {
-            token = await _authenticationApi.RequestAppToken();
-        }
-        await _appAuthService.SetAppToken(token);
+
+        var token = await _tokenProvider.GetOrRefreshTokenAsync();
+
         if (!prototype.Headers.ContainsKey(HeaderFields.Authorization))
         {
             prototype.Headers.Add(HeaderFields.Authorization, $"Bearer {token}");
