@@ -2,18 +2,19 @@
 using Gtlabs.Authentication.Services;
 using Gtlabs.Authentication.Tokens;
 using Gtlabs.Consts;
+using Microsoft.Extensions.Options;
 
 namespace Gtlabs.Api.ApiCall.Normalization;
 
 public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
 {
-    private readonly AuthenticationHeaderOptions _options;
+    private readonly IOptions<AuthenticationHeaderOptions> _options;
     private readonly IAppAuthService _appAuthService;
     private readonly IAuthenticationApiCall _authenticationApi;
     public int Order { get; } = 5;
 
 
-    public AppJwtHeaderNormalizer(IAppAuthService appAuthService, AuthenticationHeaderOptions options, IAuthenticationApiCall authenticationApi)
+    public AppJwtHeaderNormalizer(IAppAuthService appAuthService, IOptions<AuthenticationHeaderOptions> options, IAuthenticationApiCall authenticationApi)
     {
         _appAuthService = appAuthService;
         _options = options;
@@ -22,7 +23,7 @@ public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
 
     public async void Normalize(ApiClientCallPrototype prototype)
     {
-        if (!_options.UseAuthHeader)
+        if (!_options.Value.UseAuthHeader)
             return;
         var token = await _appAuthService.GetAppToken();
         if (string.IsNullOrEmpty(token))
