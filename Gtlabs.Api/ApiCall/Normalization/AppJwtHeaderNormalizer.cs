@@ -29,6 +29,7 @@ public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
         {
             token = await _authenticationApi.RequestAppToken();
         }
+        await _appAuthService.SetAppToken(token);
         if (!prototype.Headers.ContainsKey(HeaderFields.Authorization))
         {
             prototype.Headers.Add(HeaderFields.Authorization, $"Bearer {token}");
