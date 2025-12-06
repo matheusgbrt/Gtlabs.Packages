@@ -14,7 +14,7 @@ public class AppAuthService : IAppAuthService, ITransientDependency
     private readonly IApiClientCallBuilder _apiClientCallBuilder;
 
     private readonly string _authServiceName = "GTLabs.Identity.Authentication";
-    private readonly string _authPath = "/identity/authentication/auth-service";
+    private readonly string _authPath = "/identity/authentication/service";
     private readonly string _appId;
     
     
