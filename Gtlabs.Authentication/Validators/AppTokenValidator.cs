@@ -20,7 +20,7 @@ public class AppTokenValidator : IAuthorizationValidator
         var ClaimValues = permittedApps.Select(claim => claim.Value).ToList();
         if (!ClaimValues.Contains(_ambientData.GetAppId()))
         {
-            context.Fail("App not permitted.");
+            context.Fail("App not listed in the permission list.");
         }
         return Task.CompletedTask;
     }

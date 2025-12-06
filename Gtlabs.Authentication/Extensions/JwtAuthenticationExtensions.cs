@@ -63,16 +63,19 @@ public static class JwtAuthenticationExtensions
 
                 if (tokenType == null)
                 {
-                    context.Fail("Missing token_type.");
-                    return;
+                    context.Fail("Missing token type.");
                 }
 
+                if (!opts.AllowOutsideCalls && tokenType != JwtTokenClaims.ValueApp)
+                {
+                    context.Fail("Token not permitted in this app.");
+                }
+                
                 var validatorType = registry.GetValidatorType(tokenType);
 
                 if (validatorType == null)
                 {
-                    context.Fail($"No validator registered for token_type '{tokenType}'.");
-                    return;
+                    context.Fail("Internal failed. Validator not registered.");
                 }
 
                 var validator = (IAuthorizationValidator)
