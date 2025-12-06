@@ -1,10 +1,11 @@
 ﻿using Gtlabs.Api.ApiCall.Tokens;
 using Gtlabs.Consts;
 using Gtlabs.Core.AmbientData.Interfaces;
+using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
 
 namespace Gtlabs.Api.ApiCall.Authentication;
 
-public class AuthenticationApiCall : IAuthenticationApiCall
+public class AuthenticationApiCall : IAuthenticationApiCall, ITransientDependency
 {
     private readonly IApiClientCallBuilder _apiClientCallBuilder;
     private readonly string _authServiceName = "GTLabs.Identity.Authentication";
