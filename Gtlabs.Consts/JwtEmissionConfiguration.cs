@@ -1,6 +1,6 @@
 ﻿namespace Gtlabs.Consts;
 
-public class JwtTokenEmissionConfiguration
+public class JwtEmissionConfiguration
 {
     public string SecretKey { get; set; }
     public string Issuer { get; set; }

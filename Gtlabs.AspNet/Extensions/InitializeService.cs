@@ -18,7 +18,7 @@ public static class InitializeService
         services.AddApiClientCallBuilder();
         services.RegisterAllDependencies();
         services.AddActionFilters();
-        services.Configure(new Action<JwtTokenEmissionConfiguration>(opt =>
+        services.Configure(new Action<JwtEmissionConfiguration>(opt =>
         {
             opt.Issuer = configuration["Jwt:Issuer"]!;
             opt.Audience = configuration["Jwt:Audience"]!;
