@@ -27,7 +27,7 @@ internal class CacheService<T> : ICacheService<T> where T : CacheEntity
         var key = entity.BuildKey();
         var value = await _database.StringGetAsync(key);
         if (value.IsNullOrEmpty)
-            return default;
+            return null;
 
         return JsonSerializer.Deserialize<T>(value!);
     }

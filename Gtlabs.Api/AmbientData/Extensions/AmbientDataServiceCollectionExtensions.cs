@@ -22,8 +22,11 @@ public static class AmbientDataServiceCollectionExtensions
         //
         // Register each provider as the interfaces it implements
         //
-        services.AddScoped<IUserIdSource>(sp => sp.GetRequiredService<HeaderAmbientDataProvider>());
         services.AddScoped<IGatewayUrlSource>(sp => sp.GetRequiredService<EnvironmentAmbientDataProvider>());
+        services.AddScoped<IAmbientDataProvider>(sp => sp.GetRequiredService<EnvironmentAmbientDataProvider>());
+        
+        services.AddScoped<IUserIdSource>(sp => sp.GetRequiredService<HeaderAmbientDataProvider>());
+        services.AddScoped<ICorrelationIdSource>(sp => sp.GetRequiredService<HeaderAmbientDataProvider>());
         
         //
         // Register aggregator

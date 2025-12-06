@@ -25,5 +25,6 @@ public class GtLabsDbContextFactory<TContext> : IDesignTimeDbContextFactory<TCon
         public Guid? GetUserId() => Guid.Empty;
         public string GetGatewayUrl() => string.Empty;
         public Guid? GetCorrelationId() => Guid.Empty;
+        public string GetAppId() => string.Empty;
     }
 }

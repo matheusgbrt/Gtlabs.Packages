@@ -1,6 +1,7 @@
 ﻿using Gtlabs.Api.AmbientData;
 using Gtlabs.Api.AmbientData.Interfaces;
 using Gtlabs.Api.ApiCall.Normalization;
+using Gtlabs.Api.ApiCall.Tokens;
 
 namespace Gtlabs.Api.ApiCall;
 
@@ -54,9 +55,9 @@ public class ApiClientCallBuilder : IApiClientCallBuilder
         return this;
     }
     
-    public IApiClientCallBuilder WithTimeout(TimeSpan timeout)
+    public IApiClientCallBuilder WithTimeout(CallTimeout timeout)
     {
-        _prototype.Timeout = timeout;
+        _prototype.TimeoutEnum = timeout;
         return this;
     }
     

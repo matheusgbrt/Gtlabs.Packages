@@ -56,6 +56,10 @@
 /Gtlabs.Consts/bin
 /Gtlabs.Consts/nupkgs
 
+/Gtlabs.Authentication/obj
+/Gtlabs.Authentication/bin
+/Gtlabs.Authentication/nupkgs
+
 
 .idea
 publish.txt

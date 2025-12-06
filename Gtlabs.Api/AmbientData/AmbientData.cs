@@ -51,4 +51,17 @@ public class AmbientData : IAmbientData
 
         return null;
     }
+
+    public string GetAppId()
+    {
+        foreach (var provider in _providers.OfType<IAppIdSource>())
+        {
+            var value = provider.GetAppId();
+            if (!string.IsNullOrEmpty(value))
+                return value;
+        }
+
+        throw new InvalidOperationException(
+            "AppId not found in any ambient data provider or environment variable.");
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace Gtlabs.Api.ApiCall;
+﻿using Gtlabs.Api.ApiCall.Tokens;
+
+namespace Gtlabs.Api.ApiCall;
 
 public class ApiClientCallPrototype
 {
@@ -7,7 +9,18 @@ public class ApiClientCallPrototype
     public HttpMethod Method { get; set; }
     public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
     public object? Body { get; set; }
-    public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(30);
+    private CallTimeout _timeoutEnum;
+    public CallTimeout TimeoutEnum
+    {
+        get => _timeoutEnum;
+        set
+        {
+            _timeoutEnum = value;
+            Timeout = TimeSpan.FromSeconds((int)value);
+        }
+    }
+
+    public TimeSpan Timeout { get; private set; }
     public Type? ErrorDtoType { get; set; }
     
 }

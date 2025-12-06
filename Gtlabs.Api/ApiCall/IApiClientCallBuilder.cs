@@ -1,4 +1,6 @@
-﻿namespace Gtlabs.Api.ApiCall;
+﻿using Gtlabs.Api.ApiCall.Tokens;
+
+namespace Gtlabs.Api.ApiCall;
 
 public interface IApiClientCallBuilder
 {
@@ -7,7 +9,7 @@ public interface IApiClientCallBuilder
     IApiClientCallBuilder WithMethod(HttpMethod method);
     IApiClientCallBuilder WithHeader(string key, string value);
     IApiClientCallBuilder WithBody(object body);
-    IApiClientCallBuilder WithTimeout(TimeSpan timeout);
+    IApiClientCallBuilder WithTimeout(CallTimeout timeout);
     IApiClientCallBuilder WithErrorDto<TError>();
 
     Task<ApiResponseEnvelope> ExecuteAsync();

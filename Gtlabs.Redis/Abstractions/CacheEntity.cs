@@ -4,11 +4,11 @@
     {
         public abstract string Prefix { get; }
 
-        public Guid Id { get; init; }
+        public string Id { get; set; } = "";
 
         public virtual string BuildKey()
         {
-            return $"{Prefix}:{Id.ToString()}";
+            return $"{Prefix}:{Id}";
         }
     }
 }

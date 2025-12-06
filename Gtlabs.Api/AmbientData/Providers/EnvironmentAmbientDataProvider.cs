@@ -1,16 +1,31 @@
 ﻿using Gtlabs.Api.AmbientData.Interfaces;
 using Gtlabs.Api.AmbientData.Sources;
+using Gtlabs.Consts;
+using Microsoft.Extensions.Configuration;
 
 namespace Gtlabs.Api.AmbientData.Providers;
 
 public class EnvironmentAmbientDataProvider: IAmbientDataProvider, IGatewayUrlSource, IOrderedAmbientSource
 {
+    
+    private readonly IConfiguration _config;
+
+    public EnvironmentAmbientDataProvider(IConfiguration config)
+    {
+        _config = config;
+    }
+
     public string GetGatewayUrl()
     {
-        var value = System.Environment.GetEnvironmentVariable("GATEWAY_URL");
+        var value = Environment.GetEnvironmentVariable(ConfigurationFields.GatewayUrl);
         if (!string.IsNullOrWhiteSpace(value))
             return value.Trim().TrimEnd('/');
         return string.Empty;
+    }
+    
+    public string GetAppId()
+    {
+        return _config[ConfigurationFields.AppId]!;
     }
 
     public int Order { get; } = 1;
