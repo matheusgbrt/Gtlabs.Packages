@@ -1,7 +1,6 @@
-﻿using Gtlabs.Api.AmbientData;
-using Gtlabs.Api.AmbientData.Interfaces;
-using Gtlabs.Api.ApiCall.Normalization;
+﻿using Gtlabs.Api.ApiCall.Normalization;
 using Gtlabs.Api.ApiCall.Tokens;
+using Gtlabs.Core.AmbientData.Interfaces;
 
 namespace Gtlabs.Api.ApiCall;
 

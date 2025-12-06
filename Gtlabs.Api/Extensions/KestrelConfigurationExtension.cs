@@ -16,7 +16,7 @@ public static class KestrelConfigurationExtension
 
         builder.WebHost.ConfigureKestrel(serverOptions =>
         {
-            serverOptions.Listen(IPAddress.Parse(ip), int.Parse(port));
+            serverOptions.Listen(IPAddress.Parse(ip), int.Parse(port!));
         });
     }
 }

@@ -11,6 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Gtlabs.AmbientData\Gtlabs.AmbientData.csproj" />
+      <ProjectReference Include="..\Gtlabs.Authentication\Gtlabs.Authentication.csproj" />
       <ProjectReference Include="..\Gtlabs.Consts\Gtlabs.Consts.csproj" />
       <ProjectReference Include="..\Gtlabs.DependencyInjections\Gtlabs.DependencyInjections.csproj" />
     </ItemGroup>

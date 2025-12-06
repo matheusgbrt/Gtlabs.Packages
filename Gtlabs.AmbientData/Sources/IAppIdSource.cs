@@ -1,4 +1,4 @@
-﻿namespace Gtlabs.Api.AmbientData.Sources;
+﻿namespace Gtlabs.Core.AmbientData.Sources;
 
 public interface IAppIdSource
 {

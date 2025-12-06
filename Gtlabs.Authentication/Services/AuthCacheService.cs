@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Gtlabs.Authentication.Entities;
 using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
 using Gtlabs.Redis.Interfaces;
 

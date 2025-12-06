@@ -60,6 +60,10 @@
 /Gtlabs.Authentication/bin
 /Gtlabs.Authentication/nupkgs
 
+/Gtlabs.AmbientData/obj
+/Gtlabs.AmbientData/bin
+/Gtlabs.AmbientData/nupkgs
+
 
 .idea
 publish.txt

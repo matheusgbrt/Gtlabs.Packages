@@ -1,6 +1,5 @@
-﻿using Gtlabs.Api.AmbientData;
-using Gtlabs.Api.AmbientData.Interfaces;
-using Gtlabs.Consts;
+﻿using Gtlabs.Consts;
+using Gtlabs.Core.AmbientData.Interfaces;
 
 namespace Gtlabs.Api.ApiCall.Normalization.Providers;
 

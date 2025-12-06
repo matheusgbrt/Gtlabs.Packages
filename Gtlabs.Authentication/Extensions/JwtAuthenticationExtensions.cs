@@ -59,7 +59,7 @@ public static class JwtAuthenticationExtensions
             {
                 var registry = context.HttpContext.RequestServices.GetRequiredService<AuthorizationValidatorRegistry>();
 
-                var tokenType = context.Principal.FindFirst(JwtTokenClaims.TokenType)?.Value;
+                var tokenType = context.Principal!.FindFirst(JwtTokenClaims.TokenType)?.Value;
 
                 if (tokenType == null)
                 {
@@ -71,7 +71,7 @@ public static class JwtAuthenticationExtensions
                     context.Fail("Token not permitted in this app.");
                 }
                 
-                var validatorType = registry.GetValidatorType(tokenType);
+                var validatorType = registry.GetValidatorType(tokenType!);
 
                 if (validatorType == null)
                 {
@@ -79,7 +79,7 @@ public static class JwtAuthenticationExtensions
                 }
 
                 var validator = (IAuthorizationValidator)
-                    context.HttpContext.RequestServices.GetRequiredService(validatorType);
+                    context.HttpContext.RequestServices.GetRequiredService(validatorType!);
 
                 await validator.Validate(context);
             }

@@ -2,5 +2,5 @@
 
 public class EntityListSearchResult<T>
 {
-    public IEnumerable<T> Entities { get; set; }
+    public IEnumerable<T> Entities { get; set; } = new List<T>();
 }

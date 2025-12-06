@@ -1,5 +1,4 @@
 ﻿using Gtlabs.Authentication.Validators;
-using Gtlabs.Consts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Gtlabs.Authentication.Extensions;
@@ -12,7 +11,7 @@ public static class AuthorizationValidatorExtensions
 
         var assemblies = AppDomain.CurrentDomain
             .GetAssemblies()
-            .Where(a => a.FullName.StartsWith("Gtlabs"));
+            .Where(a => a.FullName!.StartsWith("Gtlabs"));
         
         var validatorTypes = assemblies
             .SelectMany(a => a.GetTypes())

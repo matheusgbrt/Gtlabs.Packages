@@ -1,9 +1,9 @@
-﻿using Gtlabs.Api.AmbientData.Interfaces;
-using Gtlabs.Api.AmbientData.Providers;
-using Gtlabs.Api.AmbientData.Sources;
+﻿using Gtlabs.Core.AmbientData.Interfaces;
+using Gtlabs.Core.AmbientData.Providers;
+using Gtlabs.Core.AmbientData.Sources;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Gtlabs.Api.AmbientData.Extensions;
+namespace Gtlabs.Core.AmbientData.Extensions;
 
 
 public static class AmbientDataServiceCollectionExtensions

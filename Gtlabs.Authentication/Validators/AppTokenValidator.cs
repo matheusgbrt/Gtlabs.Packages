@@ -1,5 +1,5 @@
-﻿using Gtlabs.Api.AmbientData.Interfaces;
-using Gtlabs.Consts;
+﻿using Gtlabs.Consts;
+using Gtlabs.Core.AmbientData.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Gtlabs.Authentication.Validators;
@@ -16,9 +16,9 @@ public class AppTokenValidator : IAuthorizationValidator
 
     public Task Validate(TokenValidatedContext context)
     {
-        var permittedApps = context.Principal.FindAll(JwtTokenClaims.PermittedApps);
-        var ClaimValues = permittedApps.Select(claim => claim.Value).ToList();
-        if (!ClaimValues.Contains(_ambientData.GetAppId()))
+        var permittedApps = context.Principal!.FindAll(JwtTokenClaims.PermittedApps);
+        var claimValues = permittedApps.Select(claim => claim.Value).ToList();
+        if (!claimValues.Contains(_ambientData.GetAppId()))
         {
             context.Fail("App not listed in the permission list.");
         }

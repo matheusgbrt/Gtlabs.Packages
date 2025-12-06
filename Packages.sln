@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.AspNet", "Gtlabs.Asp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.Authentication", "Gtlabs.Authentication\Gtlabs.Authentication.csproj", "{8F404497-4DD6-4305-82B3-F1ECE8D4B818}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtlabs.AmbientData", "Gtlabs.AmbientData\Gtlabs.AmbientData.csproj", "{0E98C216-BE65-483B-9D00-CE9B3BBAA795}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,5 +80,9 @@ Global
 		{8F404497-4DD6-4305-82B3-F1ECE8D4B818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F404497-4DD6-4305-82B3-F1ECE8D4B818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F404497-4DD6-4305-82B3-F1ECE8D4B818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E98C216-BE65-483B-9D00-CE9B3BBAA795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E98C216-BE65-483B-9D00-CE9B3BBAA795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E98C216-BE65-483B-9D00-CE9B3BBAA795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E98C216-BE65-483B-9D00-CE9B3BBAA795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

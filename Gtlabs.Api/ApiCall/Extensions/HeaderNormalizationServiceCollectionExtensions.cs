@@ -1,7 +1,4 @@
-﻿using Gtlabs.Api.AmbientData.Interfaces;
-using Gtlabs.Api.AmbientData.Providers;
-using Gtlabs.Api.AmbientData.Sources;
-using Gtlabs.Api.ApiCall.Normalization;
+﻿using Gtlabs.Api.ApiCall.Normalization;
 using Gtlabs.Api.ApiCall.Normalization.Providers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +13,8 @@ public static class HeaderNormalizationServiceCollectionExtensions
         services.AddScoped<IHeaderNormalizationProvider, UserIdHeaderNormalizer>();
         services.AddScoped<IHeaderNormalizationProvider, ServiceNameNormalizer>();
         services.AddScoped<IHeaderNormalizationProvider, TimestampHeaderNormalizer>();
+        services.AddScoped<IHeaderNormalizationProvider, AppJwtHeaderNormalizer>();
+
 
 
         services.AddScoped<ApiHeaderNormalizationService>();

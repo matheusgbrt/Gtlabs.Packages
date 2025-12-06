@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Gtlabs.Api.AmbientData;
-using Gtlabs.Api.AmbientData.Interfaces;
+using Gtlabs.Core.AmbientData.Interfaces;
 using Gtlabs.Core.Extensions;
 using Gtlabs.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,7 @@ public abstract class GtLabsDbContext : DbContext
         foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
             // TABLE
-            entity.SetTableName(entity.GetTableName().ToSnakeCase());
+            entity.SetTableName(entity!.GetTableName()!.ToSnakeCase());
 
             // COLUMNS
             foreach (var property in entity.GetProperties())
@@ -33,13 +32,13 @@ public abstract class GtLabsDbContext : DbContext
             // KEYS (PK)
             foreach (var key in entity.GetKeys())
             {
-                key.SetName(key.GetName().ToSnakeCase());
+                key.SetName(key.GetName()!.ToSnakeCase());
             }
 
             // FOREIGN KEYS
             foreach (var fk in entity.GetForeignKeys())
             {
-                fk.SetConstraintName(fk.GetConstraintName().ToSnakeCase());
+                fk.SetConstraintName(fk.GetConstraintName()!.ToSnakeCase());
             }
         }
 
