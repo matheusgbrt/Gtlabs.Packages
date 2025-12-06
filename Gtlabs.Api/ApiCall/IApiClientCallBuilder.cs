@@ -14,4 +14,5 @@ public interface IApiClientCallBuilder
 
     Task<ApiResponseEnvelope> ExecuteAsync();
     Task<ApiResponseEnvelope> ExecuteSafeAsync();
+    IApiClientCallBuilder WithoutAuthHeader();
 }

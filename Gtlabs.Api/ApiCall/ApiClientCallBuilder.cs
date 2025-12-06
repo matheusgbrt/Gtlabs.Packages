@@ -1,6 +1,6 @@
-﻿using Gtlabs.Api.ApiCall.Normalization;
+﻿using Gtlabs.AmbientData.Interfaces;
+using Gtlabs.Api.ApiCall.Normalization;
 using Gtlabs.Api.ApiCall.Tokens;
-using Gtlabs.Core.AmbientData.Interfaces;
 
 namespace Gtlabs.Api.ApiCall;
 
@@ -63,6 +63,12 @@ public class ApiClientCallBuilder : IApiClientCallBuilder
     public IApiClientCallBuilder WithErrorDto<TError>()
     {
         _prototype.ErrorDtoType = typeof(TError);
+        return this;
+    }
+
+    public IApiClientCallBuilder WithoutAuthHeader()
+    {
+        _prototype.SkipAuthHeader = true;
         return this;
     }
 

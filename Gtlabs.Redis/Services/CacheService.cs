@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
 using Gtlabs.Redis.Abstractions;
 using Gtlabs.Redis.Interfaces;
 using StackExchange.Redis;

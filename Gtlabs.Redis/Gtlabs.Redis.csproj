@@ -12,8 +12,4 @@
       <PackageReference Include="StackExchange.Redis" Version="2.9.32" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Gtlabs.DependencyInjections\Gtlabs.DependencyInjections.csproj" />
-    </ItemGroup>
-
 </Project>

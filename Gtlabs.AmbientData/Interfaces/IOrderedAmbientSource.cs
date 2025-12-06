@@ -1,4 +1,4 @@
-﻿namespace Gtlabs.Core.AmbientData.Interfaces;
+﻿namespace Gtlabs.AmbientData.Interfaces;
 
 public interface IOrderedAmbientSource
 {

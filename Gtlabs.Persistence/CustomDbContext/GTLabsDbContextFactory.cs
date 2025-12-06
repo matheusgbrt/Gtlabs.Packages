@@ -1,4 +1,4 @@
-﻿using Gtlabs.Core.AmbientData.Interfaces;
+﻿using Gtlabs.AmbientData.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 

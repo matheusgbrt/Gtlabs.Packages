@@ -23,7 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Gtlabs.Api\Gtlabs.Api.csproj" />
+      <ProjectReference Include="..\Gtlabs.AmbientData\Gtlabs.AmbientData.csproj" />
       <ProjectReference Include="..\Gtlabs.Core\Gtlabs.Core.csproj" />
+      <ProjectReference Include="..\Gtlabs.DependencyInjections\Gtlabs.DependencyInjections.csproj" />
     </ItemGroup>
 </Project>

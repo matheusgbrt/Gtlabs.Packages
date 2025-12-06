@@ -1,9 +1,9 @@
-﻿using Gtlabs.Consts;
-using Gtlabs.Core.AmbientData.Interfaces;
-using Gtlabs.Core.AmbientData.Sources;
+﻿using Gtlabs.AmbientData.Interfaces;
+using Gtlabs.AmbientData.Sources;
+using Gtlabs.Consts;
 using Microsoft.Extensions.Configuration;
 
-namespace Gtlabs.Core.AmbientData.Providers;
+namespace Gtlabs.AmbientData.Providers;
 
 public class EnvironmentAmbientDataProvider: IAmbientDataProvider, IGatewayUrlSource, IOrderedAmbientSource
 {

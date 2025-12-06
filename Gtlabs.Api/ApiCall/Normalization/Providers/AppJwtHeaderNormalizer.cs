@@ -1,10 +1,9 @@
 ﻿using Gtlabs.Api.ApiCall.Authentication;
-using Gtlabs.Authentication.Services;
 using Gtlabs.Authentication.Tokens;
 using Gtlabs.Consts;
 using Microsoft.Extensions.Options;
 
-namespace Gtlabs.Api.ApiCall.Normalization;
+namespace Gtlabs.Api.ApiCall.Normalization.Providers;
 
 public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
 {
@@ -22,6 +21,9 @@ public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
     public async void Normalize(ApiClientCallPrototype prototype)
     {
         if (!_options.Value.UseAuthHeader)
+            return;
+        
+        if (prototype.SkipAuthHeader)
             return;
 
         var token = await _tokenProvider.GetOrRefreshTokenAsync();

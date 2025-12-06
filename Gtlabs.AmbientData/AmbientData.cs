@@ -1,7 +1,7 @@
-﻿using Gtlabs.Core.AmbientData.Interfaces;
-using Gtlabs.Core.AmbientData.Sources;
+﻿using Gtlabs.AmbientData.Interfaces;
+using Gtlabs.AmbientData.Sources;
 
-namespace Gtlabs.Core.AmbientData;
+namespace Gtlabs.AmbientData;
 
 public class AmbientData : IAmbientData
 {

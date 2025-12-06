@@ -1,4 +1,4 @@
-﻿namespace Gtlabs.Core.AmbientData.Sources;
+﻿namespace Gtlabs.AmbientData.Sources;
 
 public interface IGatewayUrlSource
 {

@@ -1,4 +1,4 @@
-﻿using Gtlabs.Core.AmbientData.Interfaces;
+﻿using Gtlabs.AmbientData.Interfaces;
 using Gtlabs.Persistence.CustomDbContext;
 using Gtlabs.Persistence.Repository;
 using Gtlabs.Persistence.Services;

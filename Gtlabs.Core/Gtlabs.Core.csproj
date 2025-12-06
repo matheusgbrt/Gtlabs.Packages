@@ -11,8 +11,5 @@
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\Gtlabs.Consts\Gtlabs.Consts.csproj" />
-    </ItemGroup>
 
 </Project>

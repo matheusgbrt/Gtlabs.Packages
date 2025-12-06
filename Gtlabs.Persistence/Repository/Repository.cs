@@ -1,5 +1,4 @@
-﻿using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
-using Gtlabs.Persistence.Entities;
+﻿using Gtlabs.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gtlabs.Persistence.Repository;

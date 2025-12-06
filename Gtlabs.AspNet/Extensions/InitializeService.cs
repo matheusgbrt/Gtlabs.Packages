@@ -1,8 +1,8 @@
-﻿using Gtlabs.Api.ActionFilters.Extensions;
+﻿using Gtlabs.AmbientData.Extensions;
+using Gtlabs.Api.ActionFilters.Extensions;
 using Gtlabs.Api.ActionFilters.HeaderValidations;
 using Gtlabs.Api.ApiCall.Extensions;
 using Gtlabs.Consts;
-using Gtlabs.Core.AmbientData.Extensions;
 using Gtlabs.DependencyInjections.DependencyInjectons.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

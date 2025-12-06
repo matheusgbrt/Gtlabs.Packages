@@ -1,5 +1,5 @@
-﻿using Gtlabs.Authentication.Entities;
-using Gtlabs.Core.AmbientData.Interfaces;
+﻿using Gtlabs.AmbientData.Interfaces;
+using Gtlabs.Authentication.Entities;
 using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
 
 namespace Gtlabs.Authentication.Services;

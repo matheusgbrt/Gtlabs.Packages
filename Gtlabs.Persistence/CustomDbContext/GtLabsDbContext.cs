@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Gtlabs.Core.AmbientData.Interfaces;
+using Gtlabs.AmbientData.Interfaces;
 using Gtlabs.Core.Extensions;
 using Gtlabs.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
