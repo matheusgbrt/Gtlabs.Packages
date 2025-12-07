@@ -9,15 +9,15 @@ public static class HeaderNormalizationServiceCollectionExtensions
     public static IServiceCollection AddApiClientCallBuilder(this IServiceCollection services)
     {
 
-        services.AddScoped<IHeaderNormalizationProvider, CorrelationIdHeaderNormalizer>();
-        services.AddScoped<IHeaderNormalizationProvider, UserIdHeaderNormalizer>();
-        services.AddScoped<IHeaderNormalizationProvider, ServiceNameNormalizer>();
-        services.AddScoped<IHeaderNormalizationProvider, TimestampHeaderNormalizer>();
-        services.AddScoped<IHeaderNormalizationProvider, AppJwtHeaderNormalizer>();
+        services.AddTransient<IHeaderNormalizationProvider, CorrelationIdHeaderNormalizer>();
+        services.AddTransient<IHeaderNormalizationProvider, UserIdHeaderNormalizer>();
+        services.AddTransient<IHeaderNormalizationProvider, ServiceNameNormalizer>();
+        services.AddTransient<IHeaderNormalizationProvider, TimestampHeaderNormalizer>();
+        services.AddTransient<IHeaderNormalizationProvider, AppJwtHeaderNormalizer>();
 
 
 
-        services.AddScoped<ApiHeaderNormalizationService>();
+        services.AddTransient<ApiHeaderNormalizationService>();
         services.AddTransient<IApiClientCall, ApiClientCall>();
         services.AddTransient<IApiClientCallBuilder, ApiClientCallBuilder>();
         
