@@ -18,7 +18,7 @@ public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
         _options = options;
     }
 
-    public async void Normalize(ApiClientCallPrototype prototype)
+    public async Task Normalize(ApiClientCallPrototype prototype)
     {
         if (!_options.Value.UseAuthHeader)
             return;

@@ -2,5 +2,5 @@
 
 public interface IHeaderNormalizationProvider : IOrderedHeaderNormalizer
 {
-    void Normalize(ApiClientCallPrototype prototype);
+    Task Normalize(ApiClientCallPrototype prototype);
 }

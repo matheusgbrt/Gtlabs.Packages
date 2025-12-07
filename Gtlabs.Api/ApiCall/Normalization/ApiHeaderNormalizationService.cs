@@ -11,9 +11,9 @@ public class ApiHeaderNormalizationService
             .ToList();
     }
 
-    public void Apply(ApiClientCallPrototype prototype)
+    public async Task Apply(ApiClientCallPrototype prototype)
     {
         foreach (var provider in _providers)
-            provider.Normalize(prototype);
+            await provider.Normalize(prototype);
     }
 }

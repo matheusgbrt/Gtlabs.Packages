@@ -14,11 +14,12 @@ public class UserIdHeaderNormalizer : IHeaderNormalizationProvider
         _ambient = ambient;
     }
     
-    public void Normalize(ApiClientCallPrototype prototype)
+    public async Task Normalize(ApiClientCallPrototype prototype)
     {
         var userId = _ambient.GetUserId();
         
         if (userId != null)
             prototype.Headers[HeaderFields.UserId] = userId.Value.ToString();
+        await Task.CompletedTask;
     }
 }

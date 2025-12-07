@@ -6,9 +6,10 @@ public class ServiceNameNormalizer : IHeaderNormalizationProvider
 {
     public int Order => 3;
 
-    public void Normalize(ApiClientCallPrototype prototype)
+    public async Task Normalize(ApiClientCallPrototype prototype)
     {
         if (!string.IsNullOrWhiteSpace(prototype.ServiceName))
             prototype.Headers[HeaderFields.ServiceName] = prototype.ServiceName;
+        await Task.CompletedTask;
     }
 }

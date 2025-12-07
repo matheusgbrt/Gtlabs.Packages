@@ -13,7 +13,7 @@ public class CorrelationIdHeaderNormalizer : IHeaderNormalizationProvider
         _ambientData = ambientData;
     }
 
-    public void Normalize(ApiClientCallPrototype prototype)
+    public async Task Normalize(ApiClientCallPrototype prototype)
     {
         if (!prototype.Headers.ContainsKey(HeaderFields.CorrelationId))
         {
@@ -28,5 +28,7 @@ public class CorrelationIdHeaderNormalizer : IHeaderNormalizationProvider
             }
 
         }
+
+        await Task.CompletedTask;
     }
 }

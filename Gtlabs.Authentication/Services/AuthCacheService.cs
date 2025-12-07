@@ -27,6 +27,6 @@ public class AuthCacheService : IAuthCacheService, ITransientDependency
 
     public async Task SetCachedServiceToken(CachedServiceJwt cachedServiceJwt)
     {
-        await _cacheService.SetAsync(cachedServiceJwt);
+        await _cacheService.SetAsync(cachedServiceJwt,TimeSpan.FromMinutes(50));
     }
 }
