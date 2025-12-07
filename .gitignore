@@ -64,6 +64,10 @@
 /Gtlabs.AmbientData/bin
 /Gtlabs.AmbientData/nupkgs
 
+/Gtlabs.Logging/obj
+/Gtlabs.Logging/bin
+/Gtlabs.Logging/nupkgs
+
 
 .idea
 publish.txt
