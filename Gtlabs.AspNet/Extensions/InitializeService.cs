@@ -4,6 +4,7 @@ using Gtlabs.Api.ActionFilters.HeaderValidations;
 using Gtlabs.Api.ApiCall.Extensions;
 using Gtlabs.Consts;
 using Gtlabs.DependencyInjections.DependencyInjectons.Extensions;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +28,10 @@ public static class InitializeService
         services.AddControllers(options =>
         {
             options.Filters.Add<HeaderValidationFilter>();
+        });
+        services.Configure<JsonOptions>(options =>
+        {
+            options.SerializerOptions.PropertyNameCaseInsensitive = true;
         });
         return services;
 

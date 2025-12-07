@@ -14,18 +14,30 @@ public class ApiResponseEnvelope
 
     public TResult MapTo<TResult>()
     {
-        return JsonSerializer.Deserialize<TResult>(RawBody)!;
+        var options = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        return JsonSerializer.Deserialize<TResult>(RawBody,options)!;
     }
     public List<T> MapToList<T>()
     {
-        return JsonSerializer.Deserialize<List<T>>(RawBody)!;
+        var options = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        return JsonSerializer.Deserialize<List<T>>(RawBody,options)!;
     }
     
     public T MapErrorTo<T>()
     {
+        var options = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true
+        };
         if (ErrorDto is T typed)
             return typed;
 
-        return JsonSerializer.Deserialize<T>(RawBody)!;
+        return JsonSerializer.Deserialize<T>(RawBody, options)!;
     }
 }
