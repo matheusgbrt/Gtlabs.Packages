@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using Gtlabs.Authentication.Tokens;
 using Gtlabs.Authentication.Validators;
 using Gtlabs.Consts;
+using Gtlabs.Consts.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

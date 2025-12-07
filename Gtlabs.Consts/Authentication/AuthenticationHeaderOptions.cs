@@ -1,4 +1,4 @@
-﻿namespace Gtlabs.Authentication.Tokens;
+﻿namespace Gtlabs.Consts.Authentication;
 
 public class AuthenticationHeaderOptions
 {

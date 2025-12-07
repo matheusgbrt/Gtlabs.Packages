@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Gtlabs.Authentication.Entities;
+﻿using Gtlabs.Redis.Authentication.Entities;
 
-namespace Gtlabs.Authentication.Services;
+namespace Gtlabs.Redis.Authentication.Services;
 
 public interface IAuthCacheService
 {

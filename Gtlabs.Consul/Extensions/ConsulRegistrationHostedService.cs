@@ -73,15 +73,8 @@ internal sealed class ConsulRegistrationHostedService : IHostedService
                 ID = _serviceId,
                 Name = _cfg.AppId,
                 Address = host, // the host from Kestrel
-                Port = port, // the actual bound port
-                Check = new AgentServiceCheck
-                {
-                    HTTP = $"{url.TrimEnd('/')}/health",
-                    Interval = interval,
-                    Timeout = timeout,
-                    // Backstop for crashes; we still explicitly deregister on shutdown
-                    DeregisterCriticalServiceAfter = deregAfter
-                },Tags = [fabioTag]
+                Port = port,
+                Tags = [fabioTag]
             };
 
             await _consul.Agent.ServiceRegister(registration);

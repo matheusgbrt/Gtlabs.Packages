@@ -1,6 +1,6 @@
 ﻿using Gtlabs.Redis.Abstractions;
 
-namespace Gtlabs.Authentication.Entities;
+namespace Gtlabs.Redis.Authentication.Entities;
 
 public class CachedServiceJwt : CacheEntity
 {

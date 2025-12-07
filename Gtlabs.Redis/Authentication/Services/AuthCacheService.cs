@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-using Gtlabs.Authentication.Entities;
-using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
+﻿using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
+using Gtlabs.Redis.Authentication.Entities;
 using Gtlabs.Redis.Interfaces;
 
-namespace Gtlabs.Authentication.Services;
+namespace Gtlabs.Redis.Authentication.Services;
 
 public class AuthCacheService : IAuthCacheService, ITransientDependency
 {

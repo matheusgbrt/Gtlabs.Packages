@@ -1,4 +1,4 @@
-﻿using Gtlabs.Authentication.Tokens;
+﻿using Gtlabs.Consts.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 

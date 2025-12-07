@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Gtlabs.AmbientData\Gtlabs.AmbientData.csproj" />
+      <ProjectReference Include="..\Gtlabs.Api\Gtlabs.Api.csproj" />
       <ProjectReference Include="..\Gtlabs.Consts\Gtlabs.Consts.csproj" />
       <ProjectReference Include="..\Gtlabs.DependencyInjections\Gtlabs.DependencyInjections.csproj" />
       <ProjectReference Include="..\Gtlabs.Redis\Gtlabs.Redis.csproj" />
@@ -16,6 +17,11 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.11" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Entities\" />
+      <Folder Include="Tokens\" />
     </ItemGroup>
 
 </Project>

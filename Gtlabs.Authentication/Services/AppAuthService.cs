@@ -1,6 +1,7 @@
 ﻿using Gtlabs.AmbientData.Interfaces;
-using Gtlabs.Authentication.Entities;
 using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
+using Gtlabs.Redis.Authentication.Entities;
+using Gtlabs.Redis.Authentication.Services;
 
 namespace Gtlabs.Authentication.Services;
 
