@@ -31,7 +31,7 @@ public static class AuthorizationValidatorExtensions
                 registry.Register(attr.TokenType, validatorType);
             }
 
-            services.AddScoped(validatorType);
+            services.AddTransient(validatorType);
         }
 
         services.AddSingleton(registry);

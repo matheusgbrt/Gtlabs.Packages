@@ -7,7 +7,7 @@ public static class ActionFiltersServiceCollectionExtensions
 {
     public static IServiceCollection AddActionFilters(this IServiceCollection services)
     {
-        services.AddScoped<IRequestHeaderValidator, UserIdValidator>();
+        services.AddTransient<IRequestHeaderValidator, UserIdValidator>();
 
         return services;
     }

@@ -3,7 +3,7 @@ using Gtlabs.DependencyInjections.DependencyInjectons.Interfaces;
 
 namespace Gtlabs.Api.ApiCall.Authentication;
 
-public class TokenProvider : ITokenProvider, IScopedDependency
+public class TokenProvider : ITokenProvider, ITransientDependency
 {
     private readonly IAppAuthService _cache;
     private readonly IAuthenticationApiCall _authApi;

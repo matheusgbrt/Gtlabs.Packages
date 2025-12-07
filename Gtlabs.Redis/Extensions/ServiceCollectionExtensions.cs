@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
     {
         services.Configure<RedisOptions>(configuration.GetSection("Redis"));
         services.AddSingleton<RedisConnectionManager>();
-        services.AddScoped(typeof(ICacheService<>), typeof(CacheService<>));
+        services.AddTransient(typeof(ICacheService<>), typeof(CacheService<>));
         return services;
     }
 }

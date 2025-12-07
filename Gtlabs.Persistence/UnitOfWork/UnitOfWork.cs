@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Gtlabs.Persistence.UnitOfWork;
 
-public class UnitOfWork : IUnitOfWork, IScopedDependency
+public class UnitOfWork : IUnitOfWork, ITransientDependency
 {
     private readonly DbContext _context;
     private IDbContextTransaction? _currentTransaction;
