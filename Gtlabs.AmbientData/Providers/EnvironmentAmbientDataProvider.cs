@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Gtlabs.AmbientData.Providers;
 
-public class EnvironmentAmbientDataProvider: IAmbientDataProvider, IGatewayUrlSource, IOrderedAmbientSource
+public class EnvironmentAmbientDataProvider: IAmbientDataProvider, IGatewayUrlSource, IAppIdSource,IOrderedAmbientSource
 {
     
     private readonly IConfiguration _config;
