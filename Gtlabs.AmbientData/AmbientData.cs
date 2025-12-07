@@ -64,4 +64,17 @@ public class AmbientData : IAmbientData
         throw new InvalidOperationException(
             "AppId not found in any ambient data provider or environment variable.");
     }
+    
+    public string GetServiceToken()
+    {
+        foreach (var provider in _providers.OfType<IServiceTokenSource>())
+        {
+            var value = provider.GetServiceToken();
+            if (!string.IsNullOrEmpty(value))
+                return value;
+        }
+
+        throw new InvalidOperationException(
+            "ServiceToken not found in any ambient data provider or environment variable.");
+    }
 }

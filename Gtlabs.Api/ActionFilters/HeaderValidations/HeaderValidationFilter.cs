@@ -21,15 +21,41 @@ public class HeaderValidationFilter : IActionFilter
     {
         var metadata = context.ActionDescriptor.EndpointMetadata;
 
+        // Skip everything attribute
         if (metadata.OfType<SkipHeaderValidationAttribute>().Any())
             return;
 
-        var skipAttributes = metadata.OfType<SkipSpecificHeaderValidationAttribute>();
-        var skipSet = new HashSet<Type>(skipAttributes.Select(a => a.ValidatorType));
+        // Collect types to skip
+        var skipTypes = metadata
+            .OfType<SkipSpecificHeaderValidationAttribute>()
+            .Select(a => a.ValidatorType)
+            .ToHashSet();
 
+        // Always skip ServiceTokenValidator unless explicitly re-added
+        skipTypes.Add(typeof(ServiceTokenValidator));
+
+        // Collect types to explicitly add back
+        var addTypes = metadata
+            .OfType<AddSpecificHeaderValidationAttribute>()
+            .Select(a => a.ValidatorType)
+            .ToHashSet();
+
+        // Base = all validators minus skipped ones
         var validatorsToRun = _validators
-            .Where(v => !skipSet.Contains(v.GetType()));
+            .Where(v => !skipTypes.Contains(v.GetType()))
+            .ToList();
 
+        // Add back validators by TYPE (not new instantiation — reuse from existing list)
+        foreach (var type in addTypes)
+        {
+            var validator = _validators.FirstOrDefault(v => v.GetType() == type);
+            if (validator != null && !validatorsToRun.Contains(validator))
+            {
+                validatorsToRun.Add(validator);
+            }
+        }
+
+        // Execute validators
         foreach (var validator in validatorsToRun)
         {
             var error = validator.Validate(context.HttpContext);

@@ -17,6 +17,7 @@ public class AppAuthorizationProvider : IAppAuthorizationProvider, ITransientDep
         _apiClientCallBuilder = apiClientCallBuilder;
         _authServiceAppName = ambientData.GetAppId();
     }
+    
 
     public async Task<ApiResponseEnvelope> GetAppPermissionAsync(string appIdentifier)
     {
@@ -25,7 +26,9 @@ public class AppAuthorizationProvider : IAppAuthorizationProvider, ITransientDep
                 .WithServiceName(_authServiceAppName)
                 .WithMethod(HttpMethod.Get)
                 .WithUrl(string.Format(_baseEndpoint, appIdentifier))
-                .WithHeader("X-UserID","teste")
+                .WithHeader("X-UserID","EmptyUserID")
+                .WithoutAuthHeader()
+                .WithAppToken()
                 .WithTimeout(CallTimeout.Long)
                 .ExecuteSafeAsync();
 

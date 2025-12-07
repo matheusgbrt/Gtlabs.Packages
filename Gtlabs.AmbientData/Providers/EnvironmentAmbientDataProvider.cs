@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Gtlabs.AmbientData.Providers;
 
-public class EnvironmentAmbientDataProvider: IAmbientDataProvider, IGatewayUrlSource, IAppIdSource,IOrderedAmbientSource
+public class EnvironmentAmbientDataProvider: IAmbientDataProvider, IGatewayUrlSource, IAppIdSource, IServiceTokenSource, IOrderedAmbientSource
 {
     
     private readonly IConfiguration _config;
@@ -26,6 +26,11 @@ public class EnvironmentAmbientDataProvider: IAmbientDataProvider, IGatewayUrlSo
     public string GetAppId()
     {
         return _config[ConfigurationFields.AppId]!;
+    }
+    
+    public string GetServiceToken()
+    {
+        return _config[ConfigurationFields.ServiceToken]!;
     }
 
     public int Order { get; } = 1;

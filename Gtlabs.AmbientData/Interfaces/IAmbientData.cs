@@ -6,4 +6,5 @@ public interface IAmbientData
     string GetGatewayUrl();
     Guid? GetCorrelationId();
     string GetAppId();
+    string GetServiceToken();
 }

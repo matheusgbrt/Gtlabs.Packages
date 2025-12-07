@@ -29,7 +29,6 @@ public static class JwtAuthenticationExtensions
                     ConfigureJwtBearerOptions(jwtOpts, opts,jwtConfig);
                 });
         });
-
         return services;
     }
     

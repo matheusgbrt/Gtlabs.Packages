@@ -72,6 +72,12 @@ public class ApiClientCallBuilder : IApiClientCallBuilder
         return this;
     }
 
+    public IApiClientCallBuilder WithAppToken()
+    {
+        _prototype.UseAppToken = true;
+        return this;
+    }
+
     public Task<ApiResponseEnvelope> ExecuteAsync()
     {
         _normalizationService.Apply(_prototype);

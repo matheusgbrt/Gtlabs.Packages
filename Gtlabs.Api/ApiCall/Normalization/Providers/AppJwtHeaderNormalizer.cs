@@ -1,5 +1,4 @@
 ﻿using Gtlabs.AmbientData.Interfaces;
-using Gtlabs.Api.ApiCall.Authentication;
 using Gtlabs.Consts;
 using Gtlabs.Consts.Authentication;
 using Gtlabs.Redis.Authentication.Services;

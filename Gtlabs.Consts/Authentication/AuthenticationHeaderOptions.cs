@@ -4,4 +4,5 @@ public class AuthenticationHeaderOptions
 {
     public bool UseAuthHeader { get; set; } = true;
     public bool AllowOutsideCalls { get; set; } = false;
+    public bool RegisterBackgroundService { get; set; } = true;
 }

@@ -9,6 +9,7 @@ public class ApiClientCallPrototype
     public HttpMethod Method { get; set; } = HttpMethod.Get;
     public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
     public bool SkipAuthHeader { get; set; } = false;
+    public bool UseAppToken { get; set; } = false;
     public object? Body { get; set; }
     private CallTimeout _timeoutEnum;
     public CallTimeout TimeoutEnum
