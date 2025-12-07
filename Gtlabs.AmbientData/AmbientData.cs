@@ -49,7 +49,7 @@ public class AmbientData : IAmbientData
                 return value.Value;
         }
 
-        return null;
+        return Guid.NewGuid();
     }
 
     public string GetAppId()
