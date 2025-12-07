@@ -4,7 +4,7 @@
     {
         public abstract string Prefix { get; }
 
-        public string Id { get; set; } = "";
+        public string Id { get; set; }
 
         public virtual string BuildKey()
         {

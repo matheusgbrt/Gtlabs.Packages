@@ -4,9 +4,10 @@ namespace Gtlabs.Authentication.Entities;
 
 public class CachedServiceJwt : CacheEntity
 {
-    public CachedServiceJwt(string appId)
+    public CachedServiceJwt(){}
+    public CachedServiceJwt(string id)
     {
-        Id = appId;
+        Id = id;
     }
     public override string Prefix { get; } = "service-jwt";
     public string Token { get; set; } = string.Empty;
