@@ -1,5 +1,6 @@
-﻿using Gtlabs.AmbientData.Interfaces;
-using Gtlabs.Persistence.CustomDbContext;
+﻿using Gtlabs.Persistence.CustomDbContext;
+using Gtlabs.Persistence.DataFilters;
+using Gtlabs.Persistence.Interceptors;
 using Gtlabs.Persistence.Repository;
 using Gtlabs.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,10 +20,14 @@ public static class AddPersistenceExtension
         var connectionString = configuration.GetConnectionString(connectionStringName)
                                ?? throw new InvalidOperationException($"Connection string '{connectionStringName}' not found.");
 
+        services.AddScoped(typeof(IDataFilter<>), typeof(DataFilter<>));
+        services.AddScoped<AuditedEntitySaveChangesInterceptor>();
+
         services.AddDbContext<TContext>((sp, options) =>
         {
-            var ambientData = sp.GetRequiredService<IAmbientData>();
-            options.UseNpgsql(connectionString);
+            options
+                .UseNpgsql(connectionString)
+                .AddInterceptors(sp.GetRequiredService<AuditedEntitySaveChangesInterceptor>());
             
         });
         

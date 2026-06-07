@@ -24,8 +24,8 @@ public class AuthCacheService : IAuthCacheService, ITransientDependency
         return cachedToken!.Token;
     }
 
-    public async Task SetCachedServiceToken(CachedServiceJwt cachedServiceJwt)
+    public async Task SetCachedServiceToken(CachedServiceJwt cachedServiceJwt, TimeSpan? expiration = null)
     {
-        await _cacheService.SetAsync(cachedServiceJwt,TimeSpan.FromMinutes(50));
+        await _cacheService.SetAsync(cachedServiceJwt, expiration ?? TimeSpan.FromMinutes(30));
     }
 }

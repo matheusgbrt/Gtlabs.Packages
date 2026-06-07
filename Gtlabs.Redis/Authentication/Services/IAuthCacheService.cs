@@ -5,5 +5,5 @@ namespace Gtlabs.Redis.Authentication.Services;
 public interface IAuthCacheService
 {
     Task<string> GetCachedServiceToken(string appId);
-    Task SetCachedServiceToken(CachedServiceJwt cachedServiceJwt);
+    Task SetCachedServiceToken(CachedServiceJwt cachedServiceJwt, TimeSpan? expiration = null);
 }

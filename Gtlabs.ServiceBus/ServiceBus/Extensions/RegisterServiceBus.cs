@@ -2,6 +2,7 @@
 using Gtlabs.Consts;
 using Gtlabs.ServiceBus.ServiceBus.Contracts;
 using Gtlabs.ServiceBus.ServiceBus.Serializers;
+using Gtlabs.ServiceBus.ServiceBus.Tracing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
@@ -45,8 +46,12 @@ public static class ServiceBus
         services.AddRebus(configure =>
             configure
                 .Transport(t => t.UseRabbitMq(rabbitMqConnString, inputQueueName))
-                .Events(e => e.BeforeMessageSent +=(async (bus, headers, message, context) =>
+                .Events(e =>
+                {
+                    e.BeforeMessageSent += (bus, headers, message, context) =>
                     {
+                        RebusTracePropagation.BeforeMessageSent(headers, message, context);
+
                         var type = message.GetType();
                         var attr = type?.GetCustomAttribute<CommandAttribute>();
                         if (!string.IsNullOrWhiteSpace(attr?.RemoteTypeFullName))
@@ -54,7 +59,23 @@ public static class ServiceBus
                             headers["remote-type"] = attr.RemoteTypeFullName!;
                             headers[Headers.Type] = attr.RemoteTypeFullName!;
                         }
-                    }))
+                    };
+
+                    e.AfterMessageSent += (bus, headers, message, context) =>
+                    {
+                        RebusTracePropagation.AfterMessageSent(context);
+                    };
+
+                    e.BeforeMessageHandled += (bus, headers, message, context, args) =>
+                    {
+                        RebusTracePropagation.BeforeMessageHandled(headers, message, context);
+                    };
+
+                    e.AfterMessageHandled += (bus, headers, message, context, args) =>
+                    {
+                        RebusTracePropagation.AfterMessageHandled(context);
+                    };
+                })
                 .Options(o =>
                 {
                     o.RetryStrategy(

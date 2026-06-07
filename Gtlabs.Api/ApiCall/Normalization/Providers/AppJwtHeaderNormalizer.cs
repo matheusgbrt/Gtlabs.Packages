@@ -1,39 +1,52 @@
-﻿using Gtlabs.AmbientData.Interfaces;
+﻿using Gtlabs.Api.ApiCall.Authentication;
 using Gtlabs.Consts;
 using Gtlabs.Consts.Authentication;
-using Gtlabs.Redis.Authentication.Services;
 using Microsoft.Extensions.Options;
 
 namespace Gtlabs.Api.ApiCall.Normalization.Providers;
 
 public class AppJwtHeaderNormalizer : IHeaderNormalizationProvider
 {
-    private readonly IOptions<AuthenticationHeaderOptions> _options;
-    private readonly IAuthCacheService _authCacheService;
-    private readonly IAmbientData _ambientData;
+    private readonly IOptions<AuthenticationHeaderOptions> _authenticationOptions;
+    private readonly IOptions<AppTokenHydrationOptions> _appTokenOptions;
+    private readonly IAppTokenProvider _appTokenProvider;
 
-    public AppJwtHeaderNormalizer(IOptions<AuthenticationHeaderOptions> options, IAuthCacheService authCacheService, IAmbientData ambientData)
+    public AppJwtHeaderNormalizer(
+        IOptions<AuthenticationHeaderOptions> authenticationOptions,
+        IOptions<AppTokenHydrationOptions> appTokenOptions,
+        IAppTokenProvider appTokenProvider)
     {
-        _options = options;
-        _authCacheService = authCacheService;
-        _ambientData = ambientData;
+        _authenticationOptions = authenticationOptions;
+        _appTokenOptions = appTokenOptions;
+        _appTokenProvider = appTokenProvider;
     }
 
     public int Order => 5;
     
     public async Task Normalize(ApiClientCallPrototype prototype)
     {
-        if (!_options.Value.UseAuthHeader)
+        if (!_authenticationOptions.Value.UseAuthHeader)
             return;
         
         if (prototype.SkipAuthHeader)
             return;
 
-        var token = await _authCacheService.GetCachedServiceToken(_ambientData.GetAppId());
+        if (IsAuthorizationServiceCall(prototype))
+            return;
 
         if (!prototype.Headers.ContainsKey(HeaderFields.Authorization))
         {
+            var token = await _appTokenProvider.GetTokenAsync();
+            if (string.IsNullOrWhiteSpace(token))
+                return;
+
             prototype.Headers.Add(HeaderFields.Authorization, $"Bearer {token}");
         }
     }
+
+    private bool IsAuthorizationServiceCall(ApiClientCallPrototype prototype)
+        => string.Equals(
+            prototype.ServiceName,
+            _appTokenOptions.Value.AuthorizationServiceName,
+            StringComparison.OrdinalIgnoreCase);
 }

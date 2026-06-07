@@ -1,4 +1,5 @@
-﻿using Gtlabs.AmbientData.Interfaces;
+﻿using System.Diagnostics;
+using Gtlabs.AmbientData.Interfaces;
 using Serilog.Core;
 using Serilog.Events;
 
@@ -21,5 +22,13 @@ public class AmbientDataEnricher : ILogEventEnricher
         logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("UserId", userId));
         string serviceName = _ambientData.GetAppId();
         logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("ServiceName", serviceName));
+
+        var activity = Activity.Current;
+        if (activity is not null)
+        {
+            logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("TraceId", activity.TraceId.ToString()));
+            logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("SpanId", activity.SpanId.ToString()));
+            logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("ParentSpanId", activity.ParentSpanId.ToString()));
+        }
     }
 }

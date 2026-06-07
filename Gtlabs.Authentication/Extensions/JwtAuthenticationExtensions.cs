@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Gtlabs.Authentication.Validators;
 using Gtlabs.Consts;
 using Gtlabs.Consts.Authentication;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +10,14 @@ namespace Gtlabs.Authentication.Extensions;
 
 public static class JwtAuthenticationExtensions
 {
+    private static readonly string[] RequiredClaims =
+    [
+        JwtTokenClaims.Subject,
+        JwtTokenClaims.JwtId,
+        JwtTokenClaims.IssuedAt,
+        JwtTokenClaims.TokenType
+    ];
+
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
     {
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
@@ -37,8 +44,13 @@ public static class JwtAuthenticationExtensions
         AuthenticationHeaderOptions opts,
         JwtEmissionConfiguration jwtEmissionConfiguration)
     {
+        ValidateJwtConfiguration(jwtEmissionConfiguration);
+
         jwtOpts.TokenValidationParameters = new TokenValidationParameters
         {
+            RequireExpirationTime = true,
+            RequireSignedTokens = true,
+
             ValidateIssuer = true,
             ValidIssuer = jwtEmissionConfiguration.Issuer,
 
@@ -46,42 +58,56 @@ public static class JwtAuthenticationExtensions
             ValidAudience = jwtEmissionConfiguration.Audience,
 
             ValidateLifetime = true,
+            ClockSkew = opts.ClockSkew,
 
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtEmissionConfiguration.SecretKey))
+                Encoding.UTF8.GetBytes(jwtEmissionConfiguration.SecretKey)),
+
+            AlgorithmValidator = (algorithm, _, _, _) => opts.IsSigningAlgorithmAllowed(algorithm)
             
         };
         jwtOpts.Events = new JwtBearerEvents
         {
-            OnTokenValidated = async context =>
+            OnTokenValidated = context =>
             {
-                var registry = context.HttpContext.RequestServices.GetRequiredService<AuthorizationValidatorRegistry>();
+                var missingClaims = RequiredClaims
+                    .Where(claim => context.Principal!.FindFirst(claim) is null)
+                    .ToArray();
 
-                var tokenType = context.Principal!.FindFirst(JwtTokenClaims.TokenType)?.Value;
-
-                if (tokenType == null)
+                if (missingClaims.Length > 0)
                 {
-                    context.Fail("Missing token type.");
+                    context.Fail($"Missing required claim(s): {string.Join(", ", missingClaims)}.");
+                    return Task.CompletedTask;
                 }
 
-                if (!opts.AllowOutsideCalls && tokenType != JwtTokenClaims.ValueApp)
-                {
-                    context.Fail("Token not permitted in this app.");
-                }
-                
-                var validatorType = registry.GetValidatorType(tokenType!);
+                var tokenType = context.Principal!.FindFirst(JwtTokenClaims.TokenType)!.Value;
 
-                if (validatorType == null)
+                if (!JwtTokenTypes.IsKnown(tokenType))
                 {
-                    context.Fail("Internal failed. Validator not registered.");
+                    context.Fail($"Unknown token type '{tokenType}'.");
+                    return Task.CompletedTask;
                 }
 
-                var validator = (IAuthorizationValidator)
-                    context.HttpContext.RequestServices.GetRequiredService(validatorType!);
+                if (!opts.IsTokenTypeAllowed(tokenType))
+                {
+                    context.Fail($"Token type '{tokenType}' is not permitted in this service.");
+                }
 
-                await validator.Validate(context);
+                return Task.CompletedTask;
             }
         };
+    }
+
+    private static void ValidateJwtConfiguration(JwtEmissionConfiguration jwtEmissionConfiguration)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(jwtEmissionConfiguration.Issuer);
+        ArgumentException.ThrowIfNullOrWhiteSpace(jwtEmissionConfiguration.Audience);
+        ArgumentException.ThrowIfNullOrWhiteSpace(jwtEmissionConfiguration.SecretKey);
+
+        if (Encoding.UTF8.GetByteCount(jwtEmissionConfiguration.SecretKey) < 32)
+        {
+            throw new InvalidOperationException("Jwt:SecretKey must be at least 32 bytes for HS256.");
+        }
     }
 }

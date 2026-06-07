@@ -58,6 +58,15 @@ public class MyNewCommandHandler : IHandleMessages<MyMessage>
 
 Handlers are automatically registered by the package.
 
+## Distributed tracing
+
+The package propagates W3C trace context through Rebus headers:
+
+- `traceparent`
+- `tracestate`
+
+Outgoing messages create producer activities and incoming message handlers create consumer activities. When `Gtlabs.Logging` tracing is enabled, Rebus message handling appears in the same distributed trace tree as HTTP requests and outgoing HTTP calls.
+
 ## Required environment variables
 
 - `ServiceBus:ConnectionString`: RabbitMQ connection string (e.g., `amqp://user:pass@host:port/vhost`, usually registered in Consul K/V)

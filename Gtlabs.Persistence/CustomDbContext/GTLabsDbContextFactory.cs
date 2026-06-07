@@ -1,4 +1,5 @@
-﻿using Gtlabs.AmbientData.Interfaces;
+﻿using Gtlabs.Persistence.DataFilters;
+using Gtlabs.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -15,16 +16,15 @@ public class GtLabsDbContextFactory<TContext> : IDesignTimeDbContextFactory<TCon
 
         optionsBuilder.UseNpgsql(connectionString);
 
-        IAmbientData ambientData = new DesignTimeAmbientData();
-        return (TContext)Activator.CreateInstance(typeof(TContext), optionsBuilder.Options, ambientData)!;
-    }
+        var softDeleteFilter = new DataFilter<ISoftDelete>();
 
-    private class DesignTimeAmbientData : IAmbientData
-    {
-        public Guid? GetUserId() => Guid.Empty;
-        public string GetGatewayUrl() => string.Empty;
-        public Guid? GetCorrelationId() => Guid.Empty;
-        public string GetAppId() => string.Empty;
-        public string GetServiceToken() => string.Empty;
+        try
+        {
+            return (TContext)Activator.CreateInstance(typeof(TContext), optionsBuilder.Options, softDeleteFilter)!;
+        }
+        catch (MissingMethodException)
+        {
+            return (TContext)Activator.CreateInstance(typeof(TContext), optionsBuilder.Options)!;
+        }
     }
 }

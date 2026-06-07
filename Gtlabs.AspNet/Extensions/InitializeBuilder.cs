@@ -6,9 +6,10 @@ namespace Gtlabs.AspNet.Extensions;
 public static class InitializeBuilder
 {
     public static IHostBuilder AddBasicFeatures(
-        this IHostBuilder hostBuilder)
+        this IHostBuilder hostBuilder,
+        string? seqUrl = null)
     {
-        hostBuilder.UseSerilog();
+        hostBuilder.UseSerilog(seqUrl);
         return hostBuilder;
     }
 }

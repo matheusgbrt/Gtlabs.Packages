@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <Authors>GT Labs</Authors>
+    <Company>GT Labs</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/matheusgbrt/Gtlabs.Packages</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/matheusgbrt/Gtlabs.Packages</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>gtlabs;dotnet;utilities</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildProjectDirectory)/README.md" Pack="true" PackagePath="/" Condition="Exists('$(MSBuildProjectDirectory)/README.md')" />
+  </ItemGroup>
+</Project>

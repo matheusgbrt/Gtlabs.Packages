@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Gtlabs.AmbientData.Interfaces;
+﻿using System.Reflection;
 using Gtlabs.Core.Extensions;
+using Gtlabs.Persistence.DataFilters;
 using Gtlabs.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,11 +8,16 @@ namespace Gtlabs.Persistence.CustomDbContext;
 
 public abstract class GtLabsDbContext : DbContext
 {
-    private readonly IAmbientData _ambientData;
-    protected GtLabsDbContext(DbContextOptions options, IAmbientData ambientData) : base(options)
+    private readonly IDataFilter<ISoftDelete> _softDeleteFilter;
+
+    protected GtLabsDbContext(
+        DbContextOptions options,
+        IDataFilter<ISoftDelete>? softDeleteFilter = null) : base(options)
     {
-        _ambientData = ambientData;
+        _softDeleteFilter = softDeleteFilter ?? new DataFilter<ISoftDelete>();
     }
+
+    protected bool IsSoftDeleteFilterEnabled => _softDeleteFilter.IsEnabled;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -42,56 +47,33 @@ public abstract class GtLabsDbContext : DbContext
             }
         }
 
-        ApplySoftDeleteGlobalFilter(modelBuilder);
+        ApplySoftDeleteDataFilter(modelBuilder);
     }
 
-    private static void ApplySoftDeleteGlobalFilter(ModelBuilder modelBuilder)
+    private void ApplySoftDeleteDataFilter(ModelBuilder modelBuilder)
     {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             if (typeof(SoftDeleteEntity).IsAssignableFrom(entityType.ClrType))
             {
-                var parameter = Expression.Parameter(entityType.ClrType, "e");
-                var isDeletedProperty = Expression.PropertyOrField(parameter, nameof(SoftDeleteEntity.IsDeleted));
-                var compareExpression = Expression.Equal(isDeletedProperty, Expression.Constant(false));
-                var lambda = Expression.Lambda(compareExpression, parameter);
+                var method = typeof(GtLabsDbContext)
+                    .GetMethod(
+                        nameof(ApplySoftDeleteDataFilterForEntity),
+                        BindingFlags.Instance | BindingFlags.NonPublic,
+                        binder: null,
+                        types: [typeof(ModelBuilder)],
+                        modifiers: null)!
+                    .MakeGenericMethod(entityType.ClrType);
 
-                modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
+                method.Invoke(this, [modelBuilder]);
             }
         }
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    private void ApplySoftDeleteDataFilterForEntity<TEntity>(ModelBuilder modelBuilder)
+        where TEntity : SoftDeleteEntity
     {
-        var userId = _ambientData?.GetUserId();
-        var now = DateTime.UtcNow;
-        foreach (var entry in ChangeTracker.Entries<AuditedEntity>())
-        {
-            switch (entry.State)
-            {
-                case EntityState.Added:
-                    entry.Entity.CreationTime = now;
-                    entry.Entity.CreatorId = userId;
-                    entry.Entity.LastModificationTime = now;
-                    entry.Entity.ModifierId = userId;
-                    entry.Entity.IsDeleted = false;
-                    break;
-
-                case EntityState.Modified:
-                    entry.Entity.LastModificationTime = now;
-                    entry.Entity.ModifierId = userId;
-                    break;
-
-                case EntityState.Deleted:
-                    entry.State = EntityState.Modified;
-                    entry.Entity.IsDeleted = true;
-                    entry.Entity.DeleterId = userId;
-                    entry.Entity.LastModificationTime = now;
-                    entry.Entity.ModifierId = userId;
-                    break;
-            }
-        }
-
-        return base.SaveChangesAsync(cancellationToken);
+        modelBuilder.Entity<TEntity>()
+            .HasQueryFilter(entity => !IsSoftDeleteFilterEnabled || !entity.IsDeleted);
     }
 }

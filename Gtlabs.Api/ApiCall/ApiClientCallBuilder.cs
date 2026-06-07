@@ -78,16 +78,16 @@ public class ApiClientCallBuilder : IApiClientCallBuilder
         return this;
     }
 
-    public Task<ApiResponseEnvelope> ExecuteAsync()
+    public async Task<ApiResponseEnvelope> ExecuteAsync()
     {
-        _normalizationService.Apply(_prototype);
-        return _call.ExecuteAsync(_prototype);
+        await _normalizationService.Apply(_prototype);
+        return await _call.ExecuteAsync(_prototype);
     }
 
-    public Task<ApiResponseEnvelope> ExecuteSafeAsync()
+    public async Task<ApiResponseEnvelope> ExecuteSafeAsync()
     {
-        _normalizationService.Apply(_prototype);
-        return _call.ExecuteSafeAsync(_prototype);
+        await _normalizationService.Apply(_prototype);
+        return await _call.ExecuteSafeAsync(_prototype);
     }
     
 }

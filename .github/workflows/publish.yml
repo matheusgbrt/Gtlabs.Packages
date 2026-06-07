@@ -1,4 +1,4 @@
-﻿name: Publish to ProGet
+﻿name: Publish to NuGet
 
 on:
   push:
@@ -46,10 +46,11 @@ jobs:
           name: nupkgs
           path: ./artifacts/*.nupkg
 
-      - name: Push to ProGet
+      - name: Push to NuGet.org
         env:
-          PROGET_API_KEY: ${{ secrets.PROGET_API_KEY }}
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         run: |
           dotnet nuget push "./artifacts/*.nupkg" \
-            --api-key $PROGET_API_KEY \
-            --source "https://proget.gtlabs.com.br/nuget/gtlabs-dotnet/"
+            --api-key $NUGET_API_KEY \
+            --source "https://api.nuget.org/v3/index.json" \
+            --skip-duplicate
