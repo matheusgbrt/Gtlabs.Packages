@@ -67,14 +67,22 @@ internal sealed class ConsulRegistrationHostedService : IHostedService
                 var timeout = TimeSpan.FromSeconds(2);
                 var deregAfter = TimeSpan.FromSeconds(10);
 #endif
+            var healthUrl = $"{url}/health";
             var fabioTag = _configuration["RoutePrefix"];
             var registration = new AgentServiceRegistration
             {
                 ID = _serviceId,
                 Name = _cfg.AppId,
-                Address = host, // the host from Kestrel
+                Address = host,
                 Port = port,
-                Tags = [fabioTag]
+                Tags = [fabioTag],
+                Check = new AgentServiceCheck
+                {
+                    HTTP = healthUrl,
+                    Interval = interval,
+                    Timeout = timeout,
+                    DeregisterCriticalServiceAfter = deregAfter
+                }
             };
 
             await _consul.Agent.ServiceRegister(registration);
