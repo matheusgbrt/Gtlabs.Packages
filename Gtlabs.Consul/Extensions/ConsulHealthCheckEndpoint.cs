@@ -14,7 +14,7 @@ public static class ConsulHealthCheckEndpoint
             logger.LogDebug("Health check invoked from {RemoteIp}", context.Connection.RemoteIpAddress);
             context.Response.StatusCode = 200;
             await context.Response.WriteAsync("Healthy");
-        });
+        }).AllowAnonymous();
 
         return app;
     }
